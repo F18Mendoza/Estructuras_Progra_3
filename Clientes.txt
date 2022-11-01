@@ -1,0 +1,7 @@
+1234567;Juan Perez;23658974;juanpq@gmail.com
+1290738;Jose Ramirez;23658911;jram45@gmail.com
+2345678;Ana Campos;1134667;ancamp5@gmail.com
+1472583;Valeria Figueres;11111111;val@gmail.com
+1234567;Osa Paez;2222222;osa@gamil.com
+1020304;Ian Gomez;33333333;ian@gamil.com
+1472583;Flor Rivas;44444444;flor@gmail.com

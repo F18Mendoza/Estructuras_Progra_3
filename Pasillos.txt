@@ -1,0 +1,17 @@
+01;Arroz
+02;Frijoles
+03;Sal
+04;Azucar
+05;Detergente
+02;Jabon
+11;Lavaplatos
+12;Suavizante
+13;Shampoo
+14;Tintes
+11;Acondicionador
+21;Pantalones
+22;Blusas
+23;Adornos
+24;Deportes
+25;Papeleria
+22;Congelados

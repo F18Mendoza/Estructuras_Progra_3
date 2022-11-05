@@ -368,3 +368,59 @@ string ArbolB::nombreClienteRecursivo(NodoB *&r, int pCedula){
 		}
 	}
 }
+
+//--------------------------------ELIMINACION---------------------------
+
+void ArbolB::eliminarCiente(int pCedula){
+	
+	if (raiz == NULL){
+		cout << "No hay elementos en el arbol" << endl;
+	}else if (pCedula < raiz->cedula){
+		eliminarClienteRecursivo(raiz->HIzq, pCedula);
+	}else if (pCedula > raiz-> cedula){
+		eliminarClienteRecursivo(raiz->HDer, pCedula);
+	}else { //Ya se encontró el elemento 
+		suprimirCliente(raiz);
+	}	
+}
+void ArbolB::eliminarClienteRecursivo(NodoB *&r, int pCedula){
+	
+	if (raiz == NULL){
+		cout << "No hay elementos en el arbol" << endl;
+	}else if (pCedula < r->cedula){
+		eliminarClienteRecursivo(r->HIzq, pCedula);
+	}else if (pCedula > r-> cedula){
+		eliminarClienteRecursivo(r->HDer, pCedula);
+	}else { //Ya se encontró el elemento 
+		suprimirCliente(*&r);
+	}
+}
+
+
+NodoB * ArbolB::minimo(NodoB *&r){
+	
+	if (r == NULL){
+		return NULL;
+	}else{
+		if (r->HIzq){
+			return minimo(r->HIzq);
+		}else{
+			return r;
+		}
+	}
+}
+
+
+void ArbolB::suprimirCliente(NodoB *&r){
+	
+	if (r->HIzq && r->HDer){
+		NodoB *menor = minimo(r->HDer);
+		r->cedula = menor->cedula;
+		suprimirCliente(menor);
+	}
+	else if (r->HIzq){
+		
+	}
+}
+
+

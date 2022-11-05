@@ -42,10 +42,6 @@ class ArbolBB {
         void mostrarRecursivo(NodoBB *&r);
         void mostrarPrecio(int pCodPasillo, int pCodProducto, int pCodMarca);
         void mostrarPrecioRecursivo(int pCodPasillo, int pCodProducto, int pCodMarca, NodoBB *&r);
-        void modificarMarcaNombre (string pNombre, int pCodPasillo, int pCodProducto, int pCodMarca);
-        void modificarMarcaNombreRecursivo(NodoBB *&r, string pNombre, int pCodPasillo, int pCodProducto, int pCodMarca);
-        void modificarMarcaPrecio (float pPrecio, int pCodPasillo, int pCodProducto, int pCodMarca);
-        void modificarMarcaPrecioRecursivo(NodoBB *&r, float pPrecio, int pCodPasillo, int pCodProducto, int pCodMarca);
         bool verificarCantidad(int pCodPasillo, int pCodProducto, int pCodMarca, int pCantidad);
         bool verificarCantidadRecursivo(NodoBB *&r, int pCodPasillo, int pCodProducto, int pCodMarca, int pCantidad);
         int cantidadMaxima(int pCodPasillo, int pCodProducto, int pCodMarca);
@@ -68,6 +64,12 @@ class ArbolBB {
         void modificarPasilloRecursivo(NodoBB *&r, string pNombre, int pCodPasillo);
         void modificarProducto(string pNombre, int pCodPasillo, int pCodProducto);
         void modificarProductoRecursivo(NodoBB *&r, string pNombre, int pCodPasillo, int pCodProducto);
+        void modificarMarcaGondola (int pGondola, int pCodPasillo, int pCodProducto, int pCodMarca);
+        void modificarMarcaGondolaRecursivo(NodoBB *&r, int pGondola, int pCodPasillo, int pCodProducto, int pCodMarca);
+        void modificarMarcaNombre (string pNombre, int pCodPasillo, int pCodProducto, int pCodMarca);
+        void modificarMarcaNombreRecursivo(NodoBB *&r, string pNombre, int pCodPasillo, int pCodProducto, int pCodMarca);
+        void modificarMarcaPrecio (float pPrecio, int pCodPasillo, int pCodProducto, int pCodMarca);
+        void modificarMarcaPrecioRecursivo(NodoBB *&r, float pPrecio, int pCodPasillo, int pCodProducto, int pCodMarca);
 };
 
 #endif

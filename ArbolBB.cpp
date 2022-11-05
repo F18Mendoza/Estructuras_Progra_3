@@ -417,6 +417,37 @@ void ArbolBB::modificarMarcaPrecioRecursivo(NodoBB *&r, float pPrecio, int pCodP
 	}
 }
 
+
+void ArbolBB::modificarMarcaGondola (int pGondola, int pCodPasillo, int pCodProducto, int pCodMarca){
+	
+	if (raiz -> codPasillo == pCodPasillo) {
+		raiz -> productos.modificarMarcaGondola(pGondola, pCodProducto, pCodMarca);
+	} else {
+		if (pCodPasillo < raiz -> codPasillo) {
+			modificarMarcaGondolaRecursivo(raiz -> HIzq, pGondola, pCodPasillo, pCodProducto, pCodMarca);
+		} else {
+			modificarMarcaGondolaRecursivo(raiz -> HDer, pGondola, pCodPasillo, pCodProducto, pCodMarca);
+		}
+	}
+	
+}
+
+
+
+void ArbolBB::modificarMarcaGondolaRecursivo(NodoBB *&r, int pGondola, int pCodPasillo, int pCodProducto, int pCodMarca){
+
+		if (r -> codPasillo == pCodPasillo) {
+		r -> productos.modificarMarcaGondola(pGondola, pCodProducto, pCodMarca);
+	} else {
+		if (pCodPasillo < r -> codPasillo) {
+			modificarMarcaGondolaRecursivo(r -> HIzq, pGondola, pCodPasillo, pCodProducto, pCodMarca);
+		} else {
+			modificarMarcaGondolaRecursivo(r -> HDer, pGondola, pCodPasillo, pCodProducto, pCodMarca);
+		}
+	}	
+}
+
+
 bool ArbolBB::verificarCantidad(int pCodPasillo, int pCodProducto, int pCodMarca, int pCantidad) {
 	
 	if (raiz -> codPasillo == pCodPasillo) {

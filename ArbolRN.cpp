@@ -207,6 +207,39 @@ void ArbolRN::modificarMarcaPrecioRecursivo(NodoRN *&r, float pPrecio, int pCodM
 	}
 }
 
+void ArbolRN::modificarMarcaGondola (int pGondola, int pCodMarca){
+	
+	if (raiz-> codMarca == pCodMarca){
+		raiz->cantidad = pGondola;
+	}
+	else{
+		if (pCodMarca < raiz->cantidad){
+			modificarMarcaGondolaRecursivo(raiz->HIzq, pGondola, pCodMarca);
+		}
+		else{
+			modificarMarcaGondolaRecursivo(raiz->HDer, pGondola, pCodMarca);
+		}
+	}
+}
+
+
+void ArbolRN::modificarMarcaGondolaRecursivo(NodoRN *&r, int pGondola, int pCodMarca){
+	
+	if (r-> codMarca == pCodMarca){
+		r->cantidad = pGondola;
+	}
+	else{
+		if (pCodMarca < r->cantidad){
+			modificarMarcaGondolaRecursivo(r->HIzq, pGondola, pCodMarca);
+		}
+		else{
+			modificarMarcaGondolaRecursivo(r->HDer, pGondola, pCodMarca);
+		}
+	}
+}
+
+
+
 bool ArbolRN::verificarCantidad(int pCodMarca, int pCantidad) {
 	
 	if (raiz -> codMarca == pCodMarca) {

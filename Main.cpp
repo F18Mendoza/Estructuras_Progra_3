@@ -319,6 +319,107 @@ void modificarCosas(ArbolBB &supermercado){
 	}	
 }
 
+
+void baseDatosModificar(ArbolB &clientes, ArbolBB &supermercado){
+	
+	char datos;
+	string nomCliente, nomProducto, nomPasillo, nomMarca, correoCliente;
+	int cedCliente, celCliente, codigoPasillo, codigoProducto, codigoMarca, cantGondola;
+	float pPrecio;
+	
+	while (datos != '8'){
+		cout << "1. Modificar Pasillo" << endl;
+		cout << "2. Modificar Producto" << endl;
+		cout << "3. Modificar Marca" << endl;
+		cout << "4. Modificar producto de inventario" << endl;
+		cout << "5. Modificar cliente" << endl;
+		cout << "6. Modificar nombre de administrador" << endl;
+		cout << "7. Modificar nombre de vendedor" << endl;
+		cout << "8. Salir" << endl;
+		cout << "Seleccione una opcion: " << endl;
+		cin >> datos;
+		
+		switch (datos){
+			
+			case '1': 
+				cout << "Ingrese el codigo de pasillo: ";
+				cin >> codigoPasillo;
+				if (supermercado.existeCodigo(codigoPasillo)){
+					cout << "Ingrese el nuevo nombre para el pasillo: ";
+					cin >> nomPasillo;
+					supermercado.modificarPasillo(nomPasillo, codigoPasillo);
+					break;
+				}
+				else{
+					cout << "El pasillo ingresado no existe" << endl;
+					break;
+				}	
+			
+			case '2':
+				cout << "Ingrese el codigo de pasillo: "<<endl;
+				cin >> codigoPasillo;
+				if (supermercado.existeCodigo(codigoPasillo)){	
+					cout << "Ingrese el codigo del producto: ";
+					cin >> codigoProducto;
+					if (supermercado.existeProducto(codigoPasillo,codigoProducto)){
+						cout << "Ingrese el nuevo nombre para el producto: ";
+						cin >> nomProducto;
+						supermercado.modificarProducto(nomProducto, codigoPasillo, codigoProducto);
+						break;
+					}
+					else{
+						cout << "El producto ingresado no existe" << endl;
+						break;
+					}
+				}
+				else{
+					cout << "El pasillo ingresado no existe" << endl;
+					break;
+				}
+			
+			case '3':
+				cout << "Este proceso modifica el nombre, precio y la cantidad en gondola\n" << endl;
+				cout << "Ingrese el codigo de pasillo: ";
+				cin >> codigoPasillo;
+				if (supermercado.existeCodigo(codigoPasillo)){	
+					cout << "Ingrese el codigo del producto: ";
+					cin >> codigoProducto;
+					if (supermercado.existeProducto(codigoPasillo,codigoProducto)){
+						cout << "Ingrese el codigo de la marca: ";
+						cin >> codigoMarca;
+						if (supermercado.existeMarca(codigoPasillo, codigoProducto, codigoMarca)){
+							cout << "Ingrese el nuevo nombre de la marca: ";
+							cin >> nomMarca;
+							cout << "Ingrese el nuevo precio para la marca: ";
+							cin >> pPrecio;
+							cout << "Ingrese la nueva cantidad en gondola para la marca: ";
+							cin >> cantGondola;
+							supermercado.modificarMarcaNombre(nomMarca, codigoPasillo, codigoProducto, codigoMarca);
+							supermercado.modificarMarcaPrecio(pPrecio, codigoPasillo, codigoProducto, codigoMarca);
+							
+						}
+						else{
+							
+						}
+						
+					}
+						else{
+							cout << "El producto ingresado no existe" << endl;
+							break;
+						}
+					}
+					else{
+						cout << "El pasillo ingresado no existe" << endl;
+						break;
+					}
+		}
+		
+		
+		
+	}
+}
+
+
 void baseDeDatos(ArbolB &clientes, int &descuento, ArbolBB &supermercado, ListaDescuento &listaDescuentos){
 	
 	char datos;
@@ -357,6 +458,7 @@ void baseDeDatos(ArbolB &clientes, int &descuento, ArbolBB &supermercado, ListaD
 				
 			case '3':
 				cout << "Menu de opciones para modificar cosas" << endl;
+				baseDatosModificar(clientes, supermercado);
 				break;
 				
 			case '4':
@@ -746,7 +848,10 @@ int main() {
 		stringstream input_stringstream(linea);
 		getline(input_stringstream, codigo, ';');
 		getline(input_stringstream, nombre, ';');
-		administradores.insertar(stoi(codigo), nombre);
+		if (!administradores.existeAdmin(stoi(codigo))){
+			administradores.insertar(stoi(codigo), nombre);
+		}
+		
 	}
 	
 	archivo6.close();
@@ -762,7 +867,10 @@ int main() {
 		stringstream input_stringstream(linea);
 		getline(input_stringstream, vendedor, ';');
 		getline(input_stringstream, nombre, ';');
-		vendedores.insertar(nombre, stoi(vendedor));
+		if (!vendedores.existeVendedor(stoi(vendedor))){
+			vendedores.insertar(nombre, stoi(vendedor));
+		}
+		
 	}
 	
 	archivo7.close();

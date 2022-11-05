@@ -396,7 +396,8 @@ void baseDatosModificar(ArbolB &clientes, ArbolBB &supermercado){
 							cin >> cantGondola;
 							supermercado.modificarMarcaNombre(nomMarca, codigoPasillo, codigoProducto, codigoMarca);
 							supermercado.modificarMarcaPrecio(pPrecio, codigoPasillo, codigoProducto, codigoMarca);
-							
+							supermercado.modificarMarcaGondola(cantGondola, codigoPasillo, codigoProducto, codigoMarca);
+							break;
 						}
 						else{
 							
@@ -412,6 +413,10 @@ void baseDatosModificar(ArbolB &clientes, ArbolBB &supermercado){
 						cout << "El pasillo ingresado no existe" << endl;
 						break;
 					}
+					
+			case '4': 
+				cout << "Este proceso modifica el stock, si es canasta y nombre\n" << endl;
+			break;
 		}
 		
 		

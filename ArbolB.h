@@ -43,6 +43,8 @@ class ArbolB {
         void eliminarClienteRecursivo(NodoB *&r, int pCedula);
         void suprimirCliente(NodoB *&r);
         NodoB *minimo (NodoB *&r);
+        void modificarCliente (int pCedula, int pTelefono, string pNombre);
+        void modificarClienteRecursivo (NodoB *&r, int pCedula, int pTelefono, string pNombre);
 };
 
 #endif

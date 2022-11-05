@@ -436,7 +436,7 @@ void ArbolBB::modificarMarcaGondola (int pGondola, int pCodPasillo, int pCodProd
 
 void ArbolBB::modificarMarcaGondolaRecursivo(NodoBB *&r, int pGondola, int pCodPasillo, int pCodProducto, int pCodMarca){
 
-		if (r -> codPasillo == pCodPasillo) {
+	if (r -> codPasillo == pCodPasillo) {
 		r -> productos.modificarMarcaGondola(pGondola, pCodProducto, pCodMarca);
 	} else {
 		if (pCodPasillo < r -> codPasillo) {

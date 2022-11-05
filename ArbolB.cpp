@@ -423,4 +423,32 @@ void ArbolB::suprimirCliente(NodoB *&r){
 	}
 }
 
-
+void ArbolB::modificarCliente (int pCedula, int pTelefono, string pNombre){
+	
+	if (raiz->cedula == pCedula){
+		raiz->nombre = pNombre;
+		raiz->telefono = pTelefono;
+	}
+	else{
+		if(pCedula < raiz->cedula){
+			modificarClienteRecursivo(raiz->HIzq, pCedula, pTelefono, pNombre);
+		}else{
+			modificarClienteRecursivo(raiz->HDer, pCedula, pTelefono, pNombre);
+		}
+	}
+	
+}
+void ArbolB::modificarClienteRecursivo (NodoB *&r, int pCedula, int pTelefono, string pNombre){
+	
+	if (raiz->cedula == pCedula){
+		raiz->nombre = pNombre;
+		raiz->telefono = pTelefono;
+	}
+	else{
+		if(pCedula < raiz->cedula){
+			modificarClienteRecursivo(raiz->HIzq, pCedula, pTelefono, pNombre);
+		}else{
+			modificarClienteRecursivo(raiz->HDer, pCedula, pTelefono, pNombre);
+		}
+	}
+}

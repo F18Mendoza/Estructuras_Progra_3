@@ -323,8 +323,8 @@ void modificarCosas(ArbolBB &supermercado){
 void baseDatosModificar(ArbolB &clientes, ArbolBB &supermercado){
 	
 	char datos;
-	string nomCliente, nomProducto, nomPasillo, nomMarca, correoCliente;
-	int cedCliente, celCliente, codigoPasillo, codigoProducto, codigoMarca, cantGondola;
+	string nomCliente, nomProducto, nomPasillo, nomMarca, correoCliente, nuevoNombre;
+	int cedCliente, celCliente, codigoPasillo, codigoProducto, codigoMarca, cantGondola, nuevoCel;
 	float pPrecio;
 	
 	while (datos != '8'){
@@ -399,7 +399,8 @@ void baseDatosModificar(ArbolB &clientes, ArbolBB &supermercado){
 							
 						}
 						else{
-							
+							cout << "La marca ingresada no existe" << endl;
+							break;
 						}
 						
 					}
@@ -412,6 +413,27 @@ void baseDatosModificar(ArbolB &clientes, ArbolBB &supermercado){
 						cout << "El pasillo ingresado no existe" << endl;
 						break;
 					}
+			
+			case '4':
+				break;
+				
+			case '5':
+				cout << "Este procedimiento modifica el nombre y telefono del cliente\n" <<endl;
+				cout << "Ingrese la cedula del cliente: " << endl;
+				cin >> cedCliente;
+				if (clientes.existeCedula(cedCliente)){
+					cout << "Ingrese el nuevo nombre para el cliente: " << endl;
+					cin >> nuevoNombre;
+					cout << "Ingrese el nuevo telefono para el cliente: " << endl;
+					cin >> nuevoCel;
+					clientes.modificarCliente(cedCliente, nuevoCel, nuevoNombre);
+					break;
+					
+				}
+				else{
+					cout << "La cedula ingresada no existe" << endl;
+					break;
+				}
 		}
 		
 		
@@ -829,10 +851,12 @@ int main() {
 		if (!clientes.existeCedula(stoi(cedula))){
 			
 			clientes.insertar(stoi(cedula), nombre, stoi(telefono), correo);
+			
 			listaDescuentos.agregarCliente(stoi(cedula));
 		}
 	}
-
+	clientes.mostrar();
+	cout << "-------------------------------" << endl;
 	archivo5.close();
 
 
@@ -850,11 +874,14 @@ int main() {
 		getline(input_stringstream, nombre, ';');
 		if (!administradores.existeAdmin(stoi(codigo))){
 			administradores.insertar(stoi(codigo), nombre);
+			
 		}
 		
 	}
-	
+	administradores.mostrarAdmin();
+	cout << "-------------------------------" << endl;
 	archivo6.close();
+	
 
 //------------------------LECTURA DE VENDEDORES -----------------------------------
 	
@@ -869,11 +896,14 @@ int main() {
 		getline(input_stringstream, nombre, ';');
 		if (!vendedores.existeVendedor(stoi(vendedor))){
 			vendedores.insertar(nombre, stoi(vendedor));
+			
 		}
 		
 	}
 	
+	vendedores.mostrarVendedor();
 	archivo7.close();
+	cout << "-------------------------------" << endl;
 	
 //--------------------LECTURA DE CIUDADES--------------------------
 
@@ -886,12 +916,12 @@ int main() {
 		stringstream input_stringstream(linea);
 		getline(input_stringstream, ciudad1, ';');
 		getline(input_stringstream, nombre, ';');
-		cout << ciudad1 << "	|	" << nombre << endl;
+		//cout << ciudad1 << "	|	" << nombre << endl;
 	}
 	
 	archivo8.close();
 
-	cout << "-----------------------------------------" << endl;
+	//cout << "-----------------------------------------" << endl;
 
 
 //--------------------LECTURA DE CONEXIONES--------------------------
@@ -904,12 +934,12 @@ int main() {
 		getline(input_stringstream, ciudad1, ';');
 		getline(input_stringstream, ciudad2, ';');
 		getline(input_stringstream, peso, ';');
-		cout << ciudad1 << "	|	" <<ciudad2 << "	|	" << peso << endl;
+		//cout << ciudad1 << "	|	" <<ciudad2 << "	|	" << peso << endl;
 	}
 	
 	archivo9.close();	
 	
-	cout << "-----------------------------------------" << endl;	
+	//cout << "-----------------------------------------" << endl;	
 	
 //--------------------LECTURA DE CIUDADES1--------------------------
 
@@ -919,11 +949,11 @@ int main() {
 		stringstream input_stringstream(linea);
 		getline(input_stringstream, ciudad1, ';');
 		getline(input_stringstream, nombre, ';');
-		cout << ciudad1 << "	|	" << nombre << endl;
+		//cout << ciudad1 << "	|	" << nombre << endl;
 	}	
 	
 	archivo10.close();
-	cout << "-----------------------------------------" << endl;
+	//cout << "-----------------------------------------" << endl;
 	
 //--------------------LECTURA DE CONEXIONES1--------------------------	
 	
@@ -934,7 +964,7 @@ int main() {
 		stringstream input_stringstream(linea);
 		getline(input_stringstream, ciudad1, ';');
 		getline(input_stringstream, ciudad2, ';');
-		cout << ciudad1 << "	|	" <<ciudad2  << endl;
+		//cout << ciudad1 << "	|	" <<ciudad2  << endl;
 	}
 	
 	archivo11.close();

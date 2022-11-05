@@ -644,3 +644,59 @@ void ArbolBB::revisarGondolasRecursivo(NodoBB *&r){
 }
 
 }
+
+void ArbolBB::modificarPasillo(string pNombre, int pCodPasillo){
+	
+	if (raiz->codPasillo == pCodPasillo){
+		raiz->nombre = pNombre;
+	}else{
+		if (pCodPasillo < raiz -> codPasillo){
+			modificarPasilloRecursivo(raiz->HIzq, pNombre, pCodPasillo);
+		}
+		else{
+			modificarPasilloRecursivo(raiz->HDer, pNombre, pCodPasillo);
+		}
+	}
+}
+
+void ArbolBB::modificarPasilloRecursivo(NodoBB *&r, string pNombre, int pCodPasillo){
+	
+	if (r->codPasillo == pCodPasillo){
+		r->nombre = pNombre;
+	}else{
+		if (pCodPasillo < r -> codPasillo){
+			modificarPasilloRecursivo(r->HIzq, pNombre, pCodPasillo);
+		}
+		else{
+			modificarPasilloRecursivo(r->HDer, pNombre, pCodPasillo);
+		}
+	}
+}
+
+void ArbolBB::modificarProducto(string pNombre, int pCodPasillo, int pCodProducto){
+	
+	if (raiz->codPasillo == pCodPasillo){
+		raiz-> productos.modificarProducto(pNombre, pCodProducto);
+	}else{
+		if (pCodPasillo < raiz -> codPasillo){
+			modificarProductoRecursivo(raiz->HIzq, pNombre, pCodPasillo, pCodProducto);
+		}
+		else{
+			modificarProductoRecursivo(raiz->HDer, pNombre, pCodPasillo, pCodProducto);
+		}
+	}
+}
+
+void ArbolBB::modificarProductoRecursivo(NodoBB *&r, string pNombre, int pCodPasillo, int pCodProducto){
+	
+	if (r->codPasillo == pCodPasillo){
+		r->productos.modificarProducto(pNombre, pCodProducto);
+	}else{
+		if (pCodPasillo < r -> codPasillo){
+			modificarProductoRecursivo(r->HIzq, pNombre, pCodPasillo, pCodProducto);
+		}
+		else{
+			modificarProductoRecursivo(r->HDer, pNombre, pCodPasillo, pCodProducto);
+		}
+	}
+}

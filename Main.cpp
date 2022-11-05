@@ -334,12 +334,12 @@ void baseDeDatos(ArbolB &clientes, int &descuento, ArbolBB &supermercado, ListaD
 		cout << " _____________________________________________________________" << endl;
 		cout << "|                   MENU BASE DE DATOS                        |" << endl;
 		cout << "|-------------------------------------------------------------|" << endl;
-		cout << "| 1. Insertar producto nuevo                                  |" << endl;
-		cout << "| 2. Modificar un producto de una marca, el precio o el nombre|" << endl;
-		cout << "| 3. Consultar precio                                         |" << endl;
-		cout << "| 4. Consultar descuento                                      |" << endl;
-		cout << "| 5. Modificar el descuento                                   |" << endl; 
-		cout << "| 6. Registrar clientes                                       |" << endl;   
+		cout << "| 1. Insertar                                                 |" << endl;
+		cout << "| 2. Eliminar                                                 |" << endl;
+		cout << "| 3. Modificar                                                |" << endl;
+		cout << "| 4. Consultar precio                                         |" << endl;
+		cout << "| 5. Consultar descuento                                      |" << endl;
+		cout << "| 6. Modificar el descuento                                   |" << endl;    
 		cout << "| 7. Salir                                                    |" << endl;                    
 		cout << "|_____________________________________________________________|" << endl;
 		cout << "Seleccione una opcion: ";
@@ -348,29 +348,18 @@ void baseDeDatos(ArbolB &clientes, int &descuento, ArbolBB &supermercado, ListaD
 		switch (datos){
 			
 			case '1':
-				cout << "Ingrese el codigo del pasillo al cual desea agregar el producto: ";
-				cin >> codigoPasillo;
-				if (supermercado.existeCodigo(codigoPasillo)) {
-					cout << "Ingrese el codigo del producto a registrar: ";
-					cin >> codigoProducto;
-					if (!supermercado.existeProducto(codigoPasillo, codigoProducto)) {
-						cout << "Ingrese el nombre del producto: ";
-						cin >> nombreProducto;
-						supermercado.insertarProducto(nombreProducto, codigoPasillo, codigoProducto);
-					} else {
-						cout << "El codigo que ingreso ya esta registrado. Intente de nuevo." << endl;
-					}
-				} else {
-					cout << "El codigo que ingreso no es valido. Intente de nuevo." << endl;
-				}
+				cout << "Menu de opciones para insertar" << endl;
 				break;
 				
 			case '2':
-				cout << "Modificar cosas" << endl;
-				modificarCosas(supermercado);
+				cout << "Menu de opciones para eliminar cosas" << endl;
 				break;
 				
 			case '3':
+				cout << "Menu de opciones para modificar cosas" << endl;
+				break;
+				
+			case '4':
 				cout << "Indique el codigo del pasillo: ";
 				cin >> codigoPasillo;
 				if (supermercado.existeCodigo(codigoPasillo)) {
@@ -392,36 +381,17 @@ void baseDeDatos(ArbolB &clientes, int &descuento, ArbolBB &supermercado, ListaD
 				}
 				break;
 				
-			case '4':
+			case '5':
 				cout << "Para los clientes que han facturado al menos 3 veces... " << endl;
 				cout << "El descuento actual es del " << descuento << "%." << endl;
 				listaDescuentos.todos();
 				break;
 				
-			case '5':
+			case '6':
 				cout << "Ingrese el nuevo descuento: ";
 				cin >> descuento;
 				break;
 			
-			case '6':
-				cout << "Registrar cliente" << endl;
-				cout << "El proceso que usted esta por realizar agregara al cliente a la base de datos\n" << endl;
-				cout << "Por favor ingrese la cedula del cliente: ";
-				cin >> cedCliente;
-				if (!clientes.existeCedula(cedCliente)) {
-					cout << "Ingrese el nombre del cliente: ";
-					cin >> nomCliente;
-					cout << "Ingrese el telefono del ciente: ";
-					cin >> celCliente;
-					cout << "Ingrese el correo del cliente: ";
-					cin >> correoCliente;
-					clientes.insertar(cedCliente, nomCliente, celCliente, correoCliente);
-					listaDescuentos.agregarCliente(cedCliente);
-					break;
-				}
-				cout << "Ya hay un cliente con esa cedula, accion invalida" << endl;
-				break;
-				
 			case '7':
 				cout << "Volviendo al menu anterior." << endl;
 				break;

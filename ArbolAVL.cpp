@@ -571,3 +571,31 @@ void ArbolAVL::revisarGondolasRecursivo(NodoAVL *&r){
 }
 
 }
+
+void ArbolAVL::modificarProducto(string pNombre, int pCodProducto){
+	
+	if (raiz->codProducto == pCodProducto){
+		raiz->codProducto = pCodProducto;
+	}else{
+		if (pCodProducto < raiz -> codProducto){
+			modificarProductoRecursivo(raiz->HIzq, pNombre, pCodProducto);
+		}
+		else{
+			modificarProductoRecursivo(raiz->HDer, pNombre, pCodProducto);
+		}
+	}
+}
+
+void ArbolAVL::modificarProductoRecursivo(NodoAVL *&r, string pNombre, int pCodProducto){
+	
+	if (r->codProducto == pCodProducto){
+		r->codProducto = pCodProducto;
+	}else{
+		if (pCodProducto < r -> codProducto){
+			modificarProductoRecursivo(r->HIzq, pNombre, pCodProducto);
+		}
+		else{
+			modificarProductoRecursivo(r->HDer, pNombre, pCodProducto);
+		}
+	}
+}

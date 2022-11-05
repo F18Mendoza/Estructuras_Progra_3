@@ -64,6 +64,10 @@ class ArbolBB {
         void verificarInventarioRecursivo(NodoBB *&r);
         void revisarGondolas();
         void revisarGondolasRecursivo(NodoBB *&r);
+        void modificarPasillo(string pNombre, int pCodPasillo);
+        void modificarPasilloRecursivo(NodoBB *&r, string pNombre, int pCodPasillo);
+        void modificarProducto(string pNombre, int pCodPasillo, int pCodProducto);
+        void modificarProductoRecursivo(NodoBB *&r, string pNombre, int pCodPasillo, int pCodProducto);
 };
 
 #endif

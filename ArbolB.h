@@ -45,6 +45,10 @@ class ArbolB {
         NodoB *minimo (NodoB *&r);
         void modificarCliente (int pCedula, int pTelefono, string pNombre);
         void modificarClienteRecursivo (NodoB *&r, int pCedula, int pTelefono, string pNombre);
+        void modificarAdmin(int pCodAdmin, string pNombre);
+        void modificarAdminRecursivo(NodoB *&r, int pCodAdmin, string pNombre);
+        void modificarVendedor (int pCodVendedor, string pNombre);
+        void modificarVendedorRecursivo (NodoB *&r, int pCodVendedor, string pNombre);
 };
 
 #endif

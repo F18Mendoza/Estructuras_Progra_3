@@ -320,11 +320,11 @@ void modificarCosas(ArbolBB &supermercado){
 }
 
 
-void baseDatosModificar(ArbolB &clientes, ArbolBB &supermercado){
+void baseDatosModificar(ArbolB &clientes, ArbolBB &supermercado, ArbolB &administradores, ArbolB &vendedores){
 	
 	char datos;
 	string nomCliente, nomProducto, nomPasillo, nomMarca, correoCliente, nuevoNombre;
-	int cedCliente, celCliente, codigoPasillo, codigoProducto, codigoMarca, cantGondola, nuevoCel;
+	int cedCliente, celCliente, codigoPasillo, codigoProducto, codigoMarca, cantGondola, nuevoCel, codigoAdmin, codigoVend;
 	float pPrecio;
 	
 	while (datos != '8'){
@@ -434,6 +434,41 @@ void baseDatosModificar(ArbolB &clientes, ArbolBB &supermercado){
 					cout << "La cedula ingresada no existe" << endl;
 					break;
 				}
+				
+			case '6':
+				cout << "Ingrese el codigo de administrador: ";
+				cin >> codigoAdmin;
+				if (administradores.existeAdmin(codigoAdmin)){
+					cout << "Ingrese el nuevo nombre para el administrador: " << endl;
+					cin >> nuevoNombre;
+					administradores.modificarAdmin(codigoAdmin, nuevoNombre);
+					break;
+				}
+				else{
+					cout << "El codigo administrador no existe" << endl;
+					break;
+				}
+				
+			case '7':
+				cout << "Ingrese el codigo de vendedor: ";
+				cin >> codigoVend;
+				if (vendedores.existeVendedor(codigoVend)){
+					cout << "Ingrese el nuevo nombre para el vendedor: ";
+					cin >> nuevoNombre;
+					vendedores.modificarVendedor(codigoVend, nuevoNombre);
+					break;
+				}
+				else{
+					cout << "El codigo vendedor no existe" << endl;
+					break;
+				}
+				
+			case '8':
+				cout << "Volviendo al menu anterior..." << endl;
+				break;
+			
+			default:
+				cout << "-----Opcion Invalia-----" << endl;
 		}
 		
 		
@@ -442,7 +477,7 @@ void baseDatosModificar(ArbolB &clientes, ArbolBB &supermercado){
 }
 
 
-void baseDeDatos(ArbolB &clientes, int &descuento, ArbolBB &supermercado, ListaDescuento &listaDescuentos){
+void baseDeDatos(ArbolB &clientes, int &descuento, ArbolBB &supermercado, ListaDescuento &listaDescuentos, ArbolB &administradores, ArbolB &vendedores){
 	
 	char datos;
 	string nomCliente;
@@ -480,7 +515,7 @@ void baseDeDatos(ArbolB &clientes, int &descuento, ArbolBB &supermercado, ListaD
 				
 			case '3':
 				cout << "Menu de opciones para modificar cosas" << endl;
-				baseDatosModificar(clientes, supermercado);
+				baseDatosModificar(clientes, supermercado, administradores, vendedores);
 				break;
 				
 			case '4':
@@ -657,7 +692,7 @@ void reportes(ArbolBB &supermercado, ArbolB &clientes, Reportes &listaReportes){
 	}
 }
 
-void menuAdministrador(ArbolB &clientes, int &descuento, ArbolBB &supermercado, Compras &colaCompras, ListaDescuento &listaDescuentos, Reportes &listaReportes, int &consecutivoFacturas){
+void menuAdministrador(ArbolB &clientes, int &descuento, ArbolBB &supermercado, Compras &colaCompras, ListaDescuento &listaDescuentos, Reportes &listaReportes, int &consecutivoFacturas, ArbolB &administradores, ArbolB &vendedores){
 	
 	char opcion;
 	ofstream file;
@@ -681,7 +716,7 @@ void menuAdministrador(ArbolB &clientes, int &descuento, ArbolBB &supermercado, 
 			
 			case '1':
 				cout << "Mantenimiento Bases"<< endl;
-				baseDeDatos(clientes, descuento, supermercado, listaDescuentos);
+				baseDeDatos(clientes, descuento, supermercado, listaDescuentos, administradores, vendedores);
 				break;
 			case '2':
 				int cedula;
@@ -855,7 +890,7 @@ int main() {
 			listaDescuentos.agregarCliente(stoi(cedula));
 		}
 	}
-	clientes.mostrar();
+//	clientes.mostrar();
 	cout << "-------------------------------" << endl;
 	archivo5.close();
 
@@ -878,7 +913,7 @@ int main() {
 		}
 		
 	}
-	administradores.mostrarAdmin();
+//	administradores.mostrarAdmin();
 	cout << "-------------------------------" << endl;
 	archivo6.close();
 	
@@ -901,7 +936,7 @@ int main() {
 		
 	}
 	
-	vendedores.mostrarVendedor();
+//	vendedores.mostrarVendedor();
 	archivo7.close();
 	cout << "-------------------------------" << endl;
 	
@@ -1007,7 +1042,7 @@ int main() {
 				cout << "Ingrese su codigo de administrador: ";
 				cin >> codigoAdmin;
 				if (administradores.existeAdmin(codigoAdmin)){
-					menuAdministrador(clientes, descuento, supermercado, colaCompras, listaDescuentos, listaReportes, consecutivoFacturas);
+					menuAdministrador(clientes, descuento, supermercado, colaCompras, listaDescuentos, listaReportes, consecutivoFacturas, administradores, vendedores);
 					break;
 				}
 				

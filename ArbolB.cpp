@@ -452,3 +452,60 @@ void ArbolB::modificarClienteRecursivo (NodoB *&r, int pCedula, int pTelefono, s
 		}
 	}
 }
+
+void ArbolB::modificarAdmin(int pCodAdmin, string pNombre){
+	
+	if (raiz->codAdmin == pCodAdmin){
+		raiz->nombre = pNombre;
+	}
+	else{
+		if(pCodAdmin < raiz->codAdmin){
+			modificarAdminRecursivo(raiz->HIzq, pCodAdmin, pNombre);
+		}else{
+			modificarAdminRecursivo(raiz->HDer, pCodAdmin, pNombre);
+		}
+	}
+}
+
+void ArbolB::modificarAdminRecursivo(NodoB *&r, int pCodAdmin, string pNombre){
+	
+	if (r->codAdmin == pCodAdmin){
+		r->nombre = pNombre;
+	}
+	else{
+		if(pCodAdmin < r->codAdmin){
+			modificarAdminRecursivo(r->HIzq, pCodAdmin, pNombre);
+		}else{
+			modificarAdminRecursivo(r->HDer, pCodAdmin, pNombre);
+		}
+	}
+}
+
+void ArbolB::modificarVendedor(int pCodVendedor, string pNombre){
+	
+	if (raiz->codVendedor == pCodVendedor){
+		raiz->nombre = pNombre;
+	}
+	else{
+		if(pCodVendedor < raiz->codVendedor){
+			modificarVendedorRecursivo(raiz->HIzq, pCodVendedor, pNombre);
+		}else{
+			modificarVendedorRecursivo(raiz->HDer, pCodVendedor, pNombre);
+		}
+	}
+}
+
+
+void ArbolB::modificarVendedorRecursivo(NodoB *&r, int pCodVendedor, string pNombre){
+
+	if (r->codVendedor == pCodVendedor){
+		r->nombre = pNombre;
+	}
+	else{
+		if(pCodVendedor < r->codVendedor){
+			modificarVendedorRecursivo(r->HIzq, pCodVendedor, pNombre);
+		}else{
+			modificarVendedorRecursivo(r->HDer, pCodVendedor, pNombre);
+		}
+	}	
+}

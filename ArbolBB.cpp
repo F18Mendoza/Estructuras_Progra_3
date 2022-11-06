@@ -731,3 +731,30 @@ void ArbolBB::modificarProductoRecursivo(NodoBB *&r, string pNombre, int pCodPas
 		}
 	}
 }
+
+void ArbolBB::modificarInventario (string pNombre, int pCantStock, int pCanasta, int pCodPasillo, int pCodProducto, int pCodMarca){
+	
+	if (raiz->codPasillo == pCodPasillo){
+		raiz->productos.modificarInventario(pNombre, pCantStock, pCanasta, pCodProducto, pCodMarca);
+	}
+	else{
+		if (pCodPasillo < raiz->codPasillo){
+			modificarInventarioRecursivo (raiz->HIzq, pNombre, pCantStock, pCanasta, pCodPasillo, pCodProducto, pCodMarca);	
+		}else{
+			modificarInventarioRecursivo (raiz->HDer, pNombre, pCantStock, pCanasta, pCodPasillo, pCodProducto, pCodMarca);
+		}
+	}
+}
+void ArbolBB::modificarInventarioRecursivo (NodoBB *&r, string pNombre, int pCantStock, int pCanasta, int pCodPasillo, int pCodProducto, int pCodMarca){
+
+	if (r->codPasillo == pCodPasillo){
+		r->productos.modificarInventario(pNombre, pCantStock, pCanasta, pCodProducto, pCodMarca);
+	}
+	else{
+		if (pCodPasillo < r->codPasillo){
+			modificarInventarioRecursivo (r->HIzq, pNombre, pCantStock, pCanasta, pCodPasillo, pCodProducto, pCodMarca);	
+		}else{
+			modificarInventarioRecursivo (r->HDer, pNombre, pCantStock, pCanasta, pCodPasillo, pCodProducto, pCodMarca);
+		}
+	}	
+}

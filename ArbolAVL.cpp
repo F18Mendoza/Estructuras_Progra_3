@@ -632,3 +632,30 @@ void ArbolAVL::modificarProductoRecursivo(NodoAVL *&r, string pNombre, int pCodP
 		}
 	}
 }
+
+void ArbolAVL::modificarInventario (string pNombre, int pCantStock, int pCanasta, int pCodProducto, int pCodMarca){
+	
+	if (raiz->codProducto == pCodProducto){
+		raiz->inventario.modificarInventario(pNombre, pCantStock, pCanasta, pCodMarca);
+	}
+	else{
+		if (pCodProducto < raiz->codProducto){
+			modificarInventarioRecursivo(raiz->HIzq, pNombre, pCantStock, pCanasta, pCodProducto, pCodMarca);
+		}else{
+			modificarInventarioRecursivo(raiz->HDer, pNombre, pCantStock, pCanasta, pCodProducto, pCodMarca);
+		}
+	}
+}
+void ArbolAVL::modificarInventarioRecursivo (NodoAVL *&r, string pNombre, int pCantStock, int pCanasta, int pCodProducto, int pCodMarca){
+	
+	if (r->codProducto == pCodProducto){
+		r->inventario.modificarInventario(pNombre, pCantStock, pCanasta, pCodMarca);
+	}
+	else{
+		if (pCodProducto < r->codProducto){
+			modificarInventarioRecursivo(r->HIzq, pNombre, pCantStock, pCanasta, pCodProducto, pCodMarca);
+		}else{
+			modificarInventarioRecursivo(r->HDer, pNombre, pCantStock, pCanasta, pCodProducto, pCodMarca);
+		}
+	}
+}

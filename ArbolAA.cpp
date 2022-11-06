@@ -134,6 +134,40 @@ void ArbolAA::modificarMarcaNombreRecursivo(NodoAA *&r, string pNombre, int pCod
 	}
 }
 
+void ArbolAA::modificarInventario (string pNombre, int pCantStock, int pCanasta, int pCodMarca){
+	
+	if (raiz->codMarca == pCodMarca){
+		raiz->nombre = pNombre;
+		raiz->stock = pCantStock;
+		raiz->canasta = pCanasta;
+	}
+	else{
+		if (pCodMarca < raiz->codMarca){
+			modificarInventarioRecursivo (raiz->HIzq, pNombre, pCantStock, pCanasta, pCodMarca);
+		}else{
+			modificarInventarioRecursivo (raiz->HDer, pNombre, pCantStock, pCanasta, pCodMarca);
+		}
+	}
+}
+
+
+
+void ArbolAA::modificarInventarioRecursivo (NodoAA *&r, string pNombre, int pCantStock, int pCanasta, int pCodMarca){
+	
+	if (raiz->codMarca == pCodMarca){
+		raiz->nombre = pNombre;
+		raiz->stock = pCantStock;
+		raiz->canasta = pCanasta;
+	}
+	else{
+		if (pCodMarca < raiz->codMarca){
+			modificarInventarioRecursivo (raiz->HIzq, pNombre, pCantStock, pCanasta, pCodMarca);
+		}else{
+			modificarInventarioRecursivo (raiz->HDer, pNombre, pCantStock, pCanasta, pCodMarca);
+		}
+	}
+}
+
 bool ArbolAA::canasta(int pCodMarca) {
 	
 	if (raiz -> codMarca == pCodMarca) {

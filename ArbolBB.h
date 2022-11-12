@@ -70,6 +70,14 @@ class ArbolBB {
         void modificarMarcaNombreRecursivo(NodoBB *&r, string pNombre, int pCodPasillo, int pCodProducto, int pCodMarca);
         void modificarMarcaPrecio (float pPrecio, int pCodPasillo, int pCodProducto, int pCodMarca);
         void modificarMarcaPrecioRecursivo(NodoBB *&r, float pPrecio, int pCodPasillo, int pCodProducto, int pCodMarca);
+        void modificarInventario (string pNombre, int pCantStock, int pCanasta, int pCodPasillo, int pCodProducto, int pCodMarca);
+        void modificarInventarioRecursivo (NodoBB *&r, string pNombre, int pCantStock, int pCanasta, int pCodPasillo, int pCodProducto, int pCodMarca);
+        void eliminarPasillo(int pCodPasillo);
+        void eliminarPasilloRecursivo(int pCodPasillo, NodoBB *&r);
+        void eliminarProducto(int pCodPasillo, int pCodProducto);
+        void eliminarProductoRecursivo(int pCodPasillo, int pCodProducto, NodoBB *&r);
+        void eliminarMarca(int pCodPasillo, int pCodProducto, int pCodMarca);
+        void eliminarMarcaRecursivo(int pCodPasillo, int pCodProducto, int pCodMarca, NodoBB *&r);
 };
 
 #endif

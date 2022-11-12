@@ -45,7 +45,8 @@ class ArbolRN {
         void modificarMarcaNombreRecursivo(NodoRN *&r, string pNombre, int pCodMarca);
         void modificarMarcaPrecio (float pPrecio, int pCodMarca);
         void modificarMarcaPrecioRecursivo(NodoRN *&r, float pPrecio, int pCodMarca);
-        
+        void eliminarMarca(int pCodMarca);
+        void eliminarMarcaRecursivo(int pCodMarca, NodoRN *&r);
 		
     friend class NodoAVL;
 };

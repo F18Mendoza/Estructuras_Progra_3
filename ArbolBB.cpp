@@ -436,7 +436,7 @@ void ArbolBB::modificarMarcaGondola (int pGondola, int pCodPasillo, int pCodProd
 
 void ArbolBB::modificarMarcaGondolaRecursivo(NodoBB *&r, int pGondola, int pCodPasillo, int pCodProducto, int pCodMarca){
 
-		if (r -> codPasillo == pCodPasillo) {
+	if (r -> codPasillo == pCodPasillo) {
 		r -> productos.modificarMarcaGondola(pGondola, pCodProducto, pCodMarca);
 	} else {
 		if (pCodPasillo < r -> codPasillo) {
@@ -728,6 +728,189 @@ void ArbolBB::modificarProductoRecursivo(NodoBB *&r, string pNombre, int pCodPas
 		}
 		else{
 			modificarProductoRecursivo(r->HDer, pNombre, pCodPasillo, pCodProducto);
+		}
+	}
+}
+
+void ArbolBB::modificarInventario (string pNombre, int pCantStock, int pCanasta, int pCodPasillo, int pCodProducto, int pCodMarca){
+	
+	if (raiz->codPasillo == pCodPasillo){
+		raiz->productos.modificarInventario(pNombre, pCantStock, pCanasta, pCodProducto, pCodMarca);
+	}
+	else{
+		if (pCodPasillo < raiz->codPasillo){
+			modificarInventarioRecursivo (raiz->HIzq, pNombre, pCantStock, pCanasta, pCodPasillo, pCodProducto, pCodMarca);	
+		}else{
+			modificarInventarioRecursivo (raiz->HDer, pNombre, pCantStock, pCanasta, pCodPasillo, pCodProducto, pCodMarca);
+		}
+	}
+}
+void ArbolBB::modificarInventarioRecursivo (NodoBB *&r, string pNombre, int pCantStock, int pCanasta, int pCodPasillo, int pCodProducto, int pCodMarca){
+
+	if (r->codPasillo == pCodPasillo){
+		r->productos.modificarInventario(pNombre, pCantStock, pCanasta, pCodProducto, pCodMarca);
+	}
+	else{
+		if (pCodPasillo < r->codPasillo){
+			modificarInventarioRecursivo (r->HIzq, pNombre, pCantStock, pCanasta, pCodPasillo, pCodProducto, pCodMarca);	
+		}else{
+			modificarInventarioRecursivo (r->HDer, pNombre, pCantStock, pCanasta, pCodPasillo, pCodProducto, pCodMarca);
+		}
+	}	
+}
+
+void ArbolBB::eliminarPasillo(int pCodPasillo) {
+	
+	if (raiz -> codPasillo == pCodPasillo) {
+		raiz -> productos.podar();
+		if (raiz -> HIzq != NULL) {
+			NodoBB *temp = raiz -> HIzq;
+			while (temp -> HDer != NULL) {
+				temp = temp -> HDer;
+			}
+			NodoBB *temp2 = raiz;
+			if (temp2 -> HIzq != temp) {
+				while (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
+				}
+				temp2 -> HDer = NULL;
+			} else {
+				temp2 -> HIzq = NULL;
+			}
+			temp -> HDer = raiz -> HDer;
+			temp -> HIzq = raiz -> HIzq;
+			raiz = temp;
+		} else {
+			if (raiz -> HDer != NULL) {
+				NodoBB *temp = raiz -> HDer;
+				while (temp -> HIzq != NULL) {
+					temp = temp -> HIzq;
+				}
+				NodoBB *temp2 = raiz;
+				if (temp2 -> HDer != temp) {
+					while (temp2 -> HIzq != temp) {
+						temp2 = temp2 -> HIzq;
+					}
+					temp2 -> HIzq = NULL;
+				} else {
+					temp2 -> HDer = NULL;
+				}
+				temp -> HDer = raiz -> HDer;
+				temp -> HIzq = raiz -> HIzq;
+				raiz = temp;
+			} else {
+				raiz = NULL;
+			}
+		}
+	} else {
+		if (pCodPasillo < raiz -> codPasillo) {
+			eliminarPasilloRecursivo(pCodPasillo, raiz -> HIzq);
+		} else {
+			eliminarPasilloRecursivo(pCodPasillo, raiz -> HDer);
+		}
+	}
+}
+
+void ArbolBB::eliminarPasilloRecursivo(int pCodPasillo, NodoBB *&r) {
+	
+	if (r -> codPasillo == pCodPasillo) {
+		r -> productos.podar();
+		if (r -> HIzq != NULL) {
+			NodoBB *temp = r -> HIzq;
+			while (temp -> HDer != NULL) {
+				temp = temp -> HDer;
+			}
+			NodoBB *temp2 = r;
+			if (temp2 -> HIzq != temp) {
+				while (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
+				}
+				temp2 -> HDer = NULL;
+			} else {
+				temp2 -> HIzq = NULL;
+			}
+			temp -> HDer = r -> HDer;
+			temp -> HIzq = r -> HIzq;
+			r = temp;
+		} else {
+			if (r -> HDer != NULL) {
+				NodoBB *temp = r -> HDer;
+				while (temp -> HIzq != NULL) {
+					temp = temp -> HIzq;
+				}
+				NodoBB *temp2 = r;
+				if (temp2 -> HDer != temp) {
+					while (temp2 -> HIzq != temp) {
+						temp2 = temp2 -> HIzq;
+					}
+					temp2 -> HIzq = NULL;
+				} else {
+					temp2 -> HDer = NULL;
+				}
+				temp -> HDer = r -> HDer;
+				temp -> HIzq = r -> HIzq;
+				r = temp;
+			} else {
+				r = NULL;
+			}
+		}
+	} else {
+		if (pCodPasillo < raiz -> codPasillo) {
+			eliminarPasilloRecursivo(pCodPasillo, raiz -> HIzq);
+		} else {
+			eliminarPasilloRecursivo(pCodPasillo, raiz -> HDer);
+		}
+	}
+}
+
+void ArbolBB::eliminarProducto(int pCodPasillo, int pCodProducto) {
+	
+	if (raiz -> codPasillo == pCodPasillo) {
+		raiz -> productos.eliminarProducto(pCodProducto);
+	} else {
+		if (pCodPasillo < raiz -> codPasillo) {
+			eliminarProductoRecursivo(pCodPasillo, pCodProducto, raiz -> HIzq);
+		} else {
+			eliminarProductoRecursivo(pCodPasillo, pCodProducto, raiz -> HDer);
+		}
+	}
+}
+
+void ArbolBB::eliminarProductoRecursivo(int pCodPasillo, int pCodProducto, NodoBB *&r) {
+	
+	if (r -> codPasillo == pCodPasillo) {
+		r -> productos.eliminarProducto(pCodProducto);
+	} else {
+		if (pCodPasillo < r -> codPasillo) {
+			eliminarProductoRecursivo(pCodPasillo, pCodProducto, r -> HIzq);
+		} else {
+			eliminarProductoRecursivo(pCodPasillo, pCodProducto, r -> HDer);
+		}
+	}
+}
+
+void ArbolBB::eliminarMarca(int pCodPasillo, int pCodProducto, int pCodMarca) {
+	
+	if (raiz -> codPasillo == pCodPasillo) {
+		raiz -> productos.eliminarMarca(pCodProducto, pCodMarca);
+	} else {
+		if (pCodPasillo < raiz -> codPasillo) {
+			eliminarMarcaRecursivo(pCodPasillo, pCodProducto, pCodMarca, raiz -> HIzq);
+		} else {
+			eliminarMarcaRecursivo(pCodPasillo, pCodProducto, pCodMarca, raiz -> HDer);
+		}
+	}
+}
+
+void ArbolBB::eliminarMarcaRecursivo(int pCodPasillo, int pCodProducto, int pCodMarca, NodoBB *&r) {
+	
+	if (r -> codPasillo == pCodPasillo) {
+		r -> productos.eliminarMarca(pCodProducto, pCodMarca);
+	} else {
+		if (pCodPasillo < r -> codPasillo) {
+			eliminarMarcaRecursivo(pCodPasillo, pCodProducto, pCodMarca, r -> HIzq);
+		} else {
+			eliminarMarcaRecursivo(pCodPasillo, pCodProducto, pCodMarca, r -> HDer);
 		}
 	}
 }

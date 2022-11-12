@@ -134,6 +134,40 @@ void ArbolAA::modificarMarcaNombreRecursivo(NodoAA *&r, string pNombre, int pCod
 	}
 }
 
+void ArbolAA::modificarInventario (string pNombre, int pCantStock, int pCanasta, int pCodMarca){
+	
+	if (raiz->codMarca == pCodMarca){
+		raiz->nombre = pNombre;
+		raiz->stock = pCantStock;
+		raiz->canasta = pCanasta;
+	}
+	else{
+		if (pCodMarca < raiz->codMarca){
+			modificarInventarioRecursivo (raiz->HIzq, pNombre, pCantStock, pCanasta, pCodMarca);
+		}else{
+			modificarInventarioRecursivo (raiz->HDer, pNombre, pCantStock, pCanasta, pCodMarca);
+		}
+	}
+}
+
+
+
+void ArbolAA::modificarInventarioRecursivo (NodoAA *&r, string pNombre, int pCantStock, int pCanasta, int pCodMarca){
+	
+	if (raiz->codMarca == pCodMarca){
+		raiz->nombre = pNombre;
+		raiz->stock = pCantStock;
+		raiz->canasta = pCanasta;
+	}
+	else{
+		if (pCodMarca < raiz->codMarca){
+			modificarInventarioRecursivo (raiz->HIzq, pNombre, pCantStock, pCanasta, pCodMarca);
+		}else{
+			modificarInventarioRecursivo (raiz->HDer, pNombre, pCantStock, pCanasta, pCodMarca);
+		}
+	}
+}
+
 bool ArbolAA::canasta(int pCodMarca) {
 	
 	if (raiz -> codMarca == pCodMarca) {
@@ -179,5 +213,107 @@ void ArbolAA::verificarInventarioRecursivo(NodoAA *&r) {
 		}
 		verificarInventarioRecursivo(r -> HIzq);
 		verificarInventarioRecursivo(r -> HDer);
+	}
+}
+
+void ArbolAA::eliminarMarca(int pCodMarca) {
+	
+	if (raiz -> codMarca == pCodMarca) {
+		if (raiz -> HIzq != NULL) {
+			NodoAA *temp = raiz -> HIzq;
+			while (temp -> HDer != NULL) {
+				temp = temp -> HDer;
+			}
+			NodoAA *temp2 = raiz;
+			if (temp2 -> HIzq != temp) {
+				while (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
+				}
+				temp2 -> HDer = NULL;
+			} else {
+				temp2 -> HIzq = NULL;
+			}
+			temp -> HDer = raiz -> HDer;
+			temp -> HIzq = raiz -> HIzq;
+			raiz = temp;
+		} else {
+			if (raiz -> HDer != NULL) {
+				NodoAA *temp = raiz -> HDer;
+				while (temp -> HIzq != NULL) {
+					temp = temp -> HIzq;
+				}
+				NodoAA *temp2 = raiz;
+				if (temp2 -> HDer != temp) {
+					while (temp2 -> HIzq != temp) {
+						temp2 = temp2 -> HIzq;
+					}
+					temp2 -> HIzq = NULL;
+				} else {
+					temp2 -> HDer = NULL;
+				}
+				temp -> HDer = raiz -> HDer;
+				temp -> HIzq = raiz -> HIzq;
+				raiz = temp;
+			} else {
+				raiz = NULL;
+			}
+		}
+	} else {
+		if (pCodMarca < raiz -> codMarca) {
+			eliminarMarcaRecursivo(pCodMarca, raiz -> HIzq);
+		} else {
+			eliminarMarcaRecursivo(pCodMarca, raiz -> HDer);
+		}
+	}
+}
+
+void ArbolAA::eliminarMarcaRecursivo(int pCodMarca, NodoAA *&r) {
+	
+	if (r -> codMarca == pCodMarca) {
+		if (r -> HIzq != NULL) {
+			NodoAA *temp = r -> HIzq;
+			while (temp -> HDer != NULL) {
+				temp = temp -> HDer;
+			}
+			NodoAA *temp2 = r;
+			if (temp2 -> HIzq != temp) {
+				while (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
+				}
+				temp2 -> HDer = NULL;
+			} else {
+				temp2 -> HIzq = NULL;
+			}
+			temp -> HDer = r -> HDer;
+			temp -> HIzq = r -> HIzq;
+			r = temp;
+		} else {
+			if (r -> HDer != NULL) {
+				NodoAA *temp = r -> HDer;
+				while (temp -> HIzq != NULL) {
+					temp = temp -> HIzq;
+				}
+				NodoAA *temp2 = r;
+				if (temp2 -> HDer != temp) {
+					while (temp2 -> HIzq != temp) {
+						temp2 = temp2 -> HIzq;
+					}
+					temp2 -> HIzq = NULL;
+				} else {
+					temp2 -> HDer = NULL;
+				}
+				temp -> HDer = r -> HDer;
+				temp -> HIzq = r -> HIzq;
+				r = temp;
+			} else {
+				r = NULL;
+			}
+		}
+	} else {
+		if (pCodMarca < r -> codMarca) {
+			eliminarMarcaRecursivo(pCodMarca, r -> HIzq);
+		} else {
+			eliminarMarcaRecursivo(pCodMarca, r -> HDer);
+		}
 	}
 }

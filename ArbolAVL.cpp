@@ -174,6 +174,32 @@ bool ArbolAVL::existeMarcaRecursivo(int pCodProducto, int pCodMarca, NodoAVL *&r
 	}
 }
 
+bool ArbolAVL::existeInventario(int pCodProducto, int pCodMarca) {
+	
+	if (raiz -> codProducto == pCodProducto) {
+		return raiz -> inventario.existeMarca(pCodMarca);
+	} else {
+		if (pCodProducto < raiz -> codProducto) {
+			return existeInventarioRecursivo(pCodProducto, pCodMarca, raiz -> HIzq);
+		} else {
+			return existeInventarioRecursivo(pCodProducto, pCodMarca, raiz -> HDer);
+		}
+	}
+}
+
+bool ArbolAVL::existeInventarioRecursivo(int pCodProducto, int pCodMarca, NodoAVL *&r) {
+	
+	if (r -> codProducto == pCodProducto) {
+		return r -> inventario.existeMarca(pCodMarca);
+	} else {
+		if (pCodProducto < r -> codProducto) {
+			return existeInventarioRecursivo(pCodProducto, pCodMarca, r -> HIzq);
+		} else {
+			return existeInventarioRecursivo(pCodProducto, pCodMarca, r -> HDer);
+		}
+	}
+}
+
 void ArbolAVL::mostrarProductos() {
 	
 	if (raiz != NULL) {
@@ -671,12 +697,13 @@ void ArbolAVL::eliminarProducto(int pCodProducto) {
 			}
 			NodoAVL *temp2 = raiz;
 			if (temp2 -> HIzq != temp) {
+				temp2 = temp2 -> HIzq;
 				while (temp2 -> HDer != temp) {
 					temp2 = temp2 -> HDer;
 				}
-				temp2 -> HDer = NULL;
+				temp2 -> HDer = temp -> HIzq;
 			} else {
-				temp2 -> HIzq = NULL;
+				temp2 -> HIzq = temp -> HIzq;
 			}
 			temp -> HDer = raiz -> HDer;
 			temp -> HIzq = raiz -> HIzq;
@@ -689,12 +716,13 @@ void ArbolAVL::eliminarProducto(int pCodProducto) {
 				}
 				NodoAVL *temp2 = raiz;
 				if (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
 					while (temp2 -> HIzq != temp) {
 						temp2 = temp2 -> HIzq;
 					}
-					temp2 -> HIzq = NULL;
+					temp2 -> HIzq = temp -> HDer;
 				} else {
-					temp2 -> HDer = NULL;
+					temp2 -> HDer = temp -> HDer;
 				}
 				temp -> HDer = raiz -> HDer;
 				temp -> HIzq = raiz -> HIzq;
@@ -723,12 +751,13 @@ void ArbolAVL::eliminarProductoRecursivo(int pCodProducto, NodoAVL *&r) {
 			}
 			NodoAVL *temp2 = r;
 			if (temp2 -> HIzq != temp) {
+				temp2 = temp2 -> HIzq;
 				while (temp2 -> HDer != temp) {
 					temp2 = temp2 -> HDer;
 				}
-				temp2 -> HDer = NULL;
+				temp2 -> HDer = temp -> HIzq;
 			} else {
-				temp2 -> HIzq = NULL;
+				temp2 -> HIzq = temp -> HIzq;
 			}
 			temp -> HDer = r -> HDer;
 			temp -> HIzq = r -> HIzq;
@@ -741,12 +770,13 @@ void ArbolAVL::eliminarProductoRecursivo(int pCodProducto, NodoAVL *&r) {
 				}
 				NodoAVL *temp2 = r;
 				if (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
 					while (temp2 -> HIzq != temp) {
 						temp2 = temp2 -> HIzq;
 					}
-					temp2 -> HIzq = NULL;
+					temp2 -> HIzq = temp -> HDer;
 				} else {
-					temp2 -> HDer = NULL;
+					temp2 -> HDer = temp -> HDer;
 				}
 				temp -> HDer = r -> HDer;
 				temp -> HIzq = r -> HIzq;
@@ -768,7 +798,6 @@ void ArbolAVL::eliminarMarca(int pCodProducto, int pCodMarca) {
 	
 	if (raiz -> codProducto == pCodProducto) {
 		raiz -> marcas.eliminarMarca(pCodMarca);
-		raiz -> inventario.eliminarMarca(pCodMarca);
 	} else {
 		if (pCodProducto < raiz -> codProducto) {
 			eliminarMarcaRecursivo(pCodProducto, pCodMarca, raiz -> HIzq);
@@ -782,12 +811,37 @@ void ArbolAVL::eliminarMarcaRecursivo(int pCodProducto, int pCodMarca, NodoAVL *
 	
 	if (r -> codProducto == pCodProducto) {
 		r -> marcas.eliminarMarca(pCodMarca);
-		r -> inventario.eliminarMarca(pCodMarca);
 	} else {
 		if (pCodProducto < r -> codProducto) {
 			eliminarMarcaRecursivo(pCodProducto, pCodMarca, r -> HIzq);
 		} else {
 			eliminarMarcaRecursivo(pCodProducto, pCodMarca, r -> HDer);
+		}
+	}
+}
+
+void ArbolAVL::eliminarInventario(int pCodProducto, int pCodMarca) {
+	
+	if (raiz -> codProducto == pCodProducto) {
+		raiz -> inventario.eliminarInventario(pCodMarca);
+	} else {
+		if (pCodProducto < raiz -> codProducto) {
+			eliminarInventarioRecursivo(pCodProducto, pCodMarca, raiz -> HIzq);
+		} else {
+			eliminarInventarioRecursivo(pCodProducto, pCodMarca, raiz -> HDer);
+		}
+	}
+}
+
+void ArbolAVL::eliminarInventarioRecursivo(int pCodProducto, int pCodMarca, NodoAVL *&r) {
+	
+	if (r -> codProducto == pCodProducto) {
+		r -> inventario.eliminarInventario(pCodMarca);
+	} else {
+		if (pCodProducto < r -> codProducto) {
+			eliminarInventarioRecursivo(pCodProducto, pCodMarca, r -> HIzq);
+		} else {
+			eliminarInventarioRecursivo(pCodProducto, pCodMarca, r -> HDer);
 		}
 	}
 }

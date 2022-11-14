@@ -31,8 +31,8 @@ class ArbolAA {
         void verificarInventarioRecursivo(NodoAA *&r);
         void modificarInventario (string pNombre, int pCantStock, int pCanasta, int pCodMarca);
         void modificarInventarioRecursivo (NodoAA *&r, string pNombre, int pCantStock, int pCanasta, int pCodMarca);
-        void eliminarMarca(int pCodMarca);
-        void eliminarMarcaRecursivo(int pCodMarca, NodoAA *&r);
+        void eliminarInventario(int pCodMarca);
+        void eliminarInventarioRecursivo(int pCodMarca, NodoAA *&r);
 
 };
 

@@ -369,58 +369,407 @@ string ArbolB::nombreClienteRecursivo(NodoB *&r, int pCedula){
 	}
 }
 
-//--------------------------------ELIMINACION---------------------------
-
-void ArbolB::eliminarCiente(int pCedula){
+void ArbolB::modificarCliente (int pCedula, int pTelefono, string pNombre){
 	
-	if (raiz == NULL){
-		cout << "No hay elementos en el arbol" << endl;
-	}else if (pCedula < raiz->cedula){
-		eliminarClienteRecursivo(raiz->HIzq, pCedula);
-	}else if (pCedula > raiz-> cedula){
-		eliminarClienteRecursivo(raiz->HDer, pCedula);
-	}else { //Ya se encontró el elemento 
-		suprimirCliente(raiz);
-	}	
+	if (raiz->cedula == pCedula){
+		raiz->nombre = pNombre;
+		raiz->telefono = pTelefono;
+	}
+	else{
+		if(pCedula < raiz->cedula){
+			modificarClienteRecursivo(raiz->HIzq, pCedula, pTelefono, pNombre);
+		}else{
+			modificarClienteRecursivo(raiz->HDer, pCedula, pTelefono, pNombre);
+		}
+	}
+	
 }
-void ArbolB::eliminarClienteRecursivo(NodoB *&r, int pCedula){
+void ArbolB::modificarClienteRecursivo (NodoB *&r, int pCedula, int pTelefono, string pNombre){
 	
-	if (raiz == NULL){
-		cout << "No hay elementos en el arbol" << endl;
-	}else if (pCedula < r->cedula){
-		eliminarClienteRecursivo(r->HIzq, pCedula);
-	}else if (pCedula > r-> cedula){
-		eliminarClienteRecursivo(r->HDer, pCedula);
-	}else { //Ya se encontró el elemento 
-		suprimirCliente(*&r);
+	if (raiz->cedula == pCedula){
+		raiz->nombre = pNombre;
+		raiz->telefono = pTelefono;
+	}
+	else{
+		if(pCedula < raiz->cedula){
+			modificarClienteRecursivo(raiz->HIzq, pCedula, pTelefono, pNombre);
+		}else{
+			modificarClienteRecursivo(raiz->HDer, pCedula, pTelefono, pNombre);
+		}
 	}
 }
 
-
-NodoB * ArbolB::minimo(NodoB *&r){
+void ArbolB::modificarAdmin(int pCodAdmin, string pNombre){
 	
-	if (r == NULL){
-		return NULL;
-	}else{
-		if (r->HIzq){
-			return minimo(r->HIzq);
+	if (raiz->codAdmin == pCodAdmin){
+		raiz->nombre = pNombre;
+	}
+	else{
+		if(pCodAdmin < raiz->codAdmin){
+			modificarAdminRecursivo(raiz->HIzq, pCodAdmin, pNombre);
 		}else{
-			return r;
+			modificarAdminRecursivo(raiz->HDer, pCodAdmin, pNombre);
+		}
+	}
+}
+
+void ArbolB::modificarAdminRecursivo(NodoB *&r, int pCodAdmin, string pNombre){
+	
+	if (r->codAdmin == pCodAdmin){
+		r->nombre = pNombre;
+	}
+	else{
+		if(pCodAdmin < r->codAdmin){
+			modificarAdminRecursivo(r->HIzq, pCodAdmin, pNombre);
+		}else{
+			modificarAdminRecursivo(r->HDer, pCodAdmin, pNombre);
+		}
+	}
+}
+
+void ArbolB::modificarVendedor(int pCodVendedor, string pNombre){
+	
+	if (raiz->codVendedor == pCodVendedor){
+		raiz->nombre = pNombre;
+	}
+	else{
+		if(pCodVendedor < raiz->codVendedor){
+			modificarVendedorRecursivo(raiz->HIzq, pCodVendedor, pNombre);
+		}else{
+			modificarVendedorRecursivo(raiz->HDer, pCodVendedor, pNombre);
 		}
 	}
 }
 
 
-void ArbolB::suprimirCliente(NodoB *&r){
-	
-	if (r->HIzq && r->HDer){
-		NodoB *menor = minimo(r->HDer);
-		r->cedula = menor->cedula;
-		suprimirCliente(menor);
+void ArbolB::modificarVendedorRecursivo(NodoB *&r, int pCodVendedor, string pNombre){
+
+	if (r->codVendedor == pCodVendedor){
+		r->nombre = pNombre;
 	}
-	else if (r->HIzq){
-		
+	else{
+		if(pCodVendedor < r->codVendedor){
+			modificarVendedorRecursivo(r->HIzq, pCodVendedor, pNombre);
+		}else{
+			modificarVendedorRecursivo(r->HDer, pCodVendedor, pNombre);
+		}
+	}	
+}
+
+void ArbolB::eliminarCliente(int pCedula) {
+	
+	if (raiz -> cedula == pCedula) {
+		if (raiz -> HIzq != NULL) {
+			NodoB *temp = raiz -> HIzq;
+			while (temp -> HDer != NULL) {
+				temp = temp -> HDer;
+			}
+			NodoB *temp2 = raiz;
+			if (temp2 -> HIzq != temp) {
+				temp2 = temp2 -> HIzq;
+				while (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
+				}
+				temp2 -> HDer = temp -> HIzq;
+			} else {
+				temp2 -> HIzq = temp -> HIzq;
+			}
+			temp -> HDer = raiz -> HDer;
+			temp -> HIzq = raiz -> HIzq;
+			raiz = temp;
+		} else {
+			if (raiz -> HDer != NULL) {
+				NodoB *temp = raiz -> HDer;
+				while (temp -> HIzq != NULL) {
+					temp = temp -> HIzq;
+				}
+				NodoB *temp2 = raiz;
+				if (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
+					while (temp2 -> HIzq != temp) {
+						temp2 = temp2 -> HIzq;
+					}
+					temp2 -> HDer = temp -> HDer;
+				} else {
+					temp2 -> HIzq = temp -> HDer;
+				}
+				temp -> HDer = raiz -> HDer;
+				temp -> HIzq = raiz -> HIzq;
+				raiz = temp;
+			} else {
+				raiz = NULL;
+			}
+		}
+	} else {
+		if (pCedula < raiz -> cedula) {
+			eliminarClienteRecursivo(pCedula, raiz -> HIzq);
+		} else {
+			eliminarClienteRecursivo(pCedula, raiz -> HDer);
+		}
 	}
 }
 
+void ArbolB::eliminarClienteRecursivo(int pCedula, NodoB *&r) {
+	
+	if (r -> cedula == pCedula) {
+		if (r -> HIzq != NULL) {
+			NodoB *temp = r -> HIzq;
+			while (temp -> HDer != NULL) {
+				temp = temp -> HDer;
+			}
+			NodoB *temp2 = r;
+			if (temp2 -> HIzq != temp) {
+				temp2 = temp2 -> HIzq;
+				while (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
+				}
+				temp2 -> HDer = temp -> HIzq;
+			} else {
+				temp2 -> HIzq = temp -> HIzq;
+			}
+			temp -> HDer = r -> HDer;
+			temp -> HIzq = r -> HIzq;
+			r = temp;
+		} else {
+			if (r -> HDer != NULL) {
+				NodoB *temp = r -> HDer;
+				while (temp -> HIzq != NULL) {
+					temp = temp -> HIzq;
+				}
+				NodoB *temp2 = r;
+				if (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
+					while (temp2 -> HIzq != temp) {
+						temp2 = temp2 -> HIzq;
+					}
+					temp2 -> HDer = temp -> HDer;
+				} else {
+					temp2 -> HIzq = temp -> HDer;
+				}
+				temp -> HDer = r -> HDer;
+				temp -> HIzq = r -> HIzq;
+				r = temp;
+			} else {
+				r = NULL;
+			}
+		}
+	} else {
+		if (pCedula < r -> cedula) {
+			eliminarClienteRecursivo(pCedula, r -> HIzq);
+		} else {
+			eliminarClienteRecursivo(pCedula, r -> HDer);
+		}
+	}
+}
 
+void ArbolB::eliminarAdmin(int pCodAdmin) {
+	
+	if (raiz -> codAdmin == pCodAdmin) {
+		if (raiz -> HIzq != NULL) {
+			NodoB *temp = raiz -> HIzq;
+			while (temp -> HDer != NULL) {
+				temp = temp -> HDer;
+			}
+			NodoB *temp2 = raiz;
+			if (temp2 -> HIzq != temp) {
+				temp2 = temp2 -> HIzq;
+				while (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
+				}
+				temp2 -> HDer = temp -> HIzq;
+			} else {
+				temp2 -> HIzq = temp -> HIzq;
+			}
+			temp -> HDer = raiz -> HDer;
+			temp -> HIzq = raiz -> HIzq;
+			raiz = temp;
+		} else {
+			if (raiz -> HDer != NULL) {
+				NodoB *temp = raiz -> HDer;
+				while (temp -> HIzq != NULL) {
+					temp = temp -> HIzq;
+				}
+				NodoB *temp2 = raiz;
+				if (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
+					while (temp2 -> HIzq != temp) {
+						temp2 = temp2 -> HIzq;
+					}
+					temp2 -> HDer = temp -> HDer;
+				} else {
+					temp2 -> HIzq = temp -> HDer;
+				}
+				temp -> HDer = raiz -> HDer;
+				temp -> HIzq = raiz -> HIzq;
+				raiz = temp;
+			} else {
+				raiz = NULL;
+			}
+		}
+	} else {
+		if (pCodAdmin < raiz -> codAdmin) {
+			eliminarClienteRecursivo(pCodAdmin, raiz -> HIzq);
+		} else {
+			eliminarClienteRecursivo(pCodAdmin, raiz -> HDer);
+		}
+	}
+}
+
+void ArbolB::eliminarAdminRecursivo(int pCodAdmin, NodoB *&r) {
+	
+	if (r -> codAdmin == pCodAdmin) {
+		if (r -> HIzq != NULL) {
+			NodoB *temp = r -> HIzq;
+			while (temp -> HDer != NULL) {
+				temp = temp -> HDer;
+			}
+			NodoB *temp2 = r;
+			if (temp2 -> HIzq != temp) {
+				temp2 = temp2 -> HIzq;
+				while (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
+				}
+				temp2 -> HDer = temp -> HIzq;
+			} else {
+				temp2 -> HIzq = temp -> HIzq;
+			}
+			temp -> HDer = r -> HDer;
+			temp -> HIzq = r -> HIzq;
+			r = temp;
+		} else {
+			if (r -> HDer != NULL) {
+				NodoB *temp = r -> HDer;
+				while (temp -> HIzq != NULL) {
+					temp = temp -> HIzq;
+				}
+				NodoB *temp2 = r;
+				if (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
+					while (temp2 -> HIzq != temp) {
+						temp2 = temp2 -> HIzq;
+					}
+					temp2 -> HDer = temp -> HDer;
+				} else {
+					temp2 -> HIzq = temp -> HDer;
+				}
+				temp -> HDer = r -> HDer;
+				temp -> HIzq = r -> HIzq;
+				r = temp;
+			} else {
+				r = NULL;
+			}
+		}
+	} else {
+		if (pCodAdmin < r -> codAdmin) {
+			eliminarClienteRecursivo(pCodAdmin, r -> HIzq);
+		} else {
+			eliminarClienteRecursivo(pCodAdmin, r -> HDer);
+		}
+	}
+}
+
+void ArbolB::eliminarVendedor(int pCodVendedor) {
+	
+	if (raiz -> codVendedor == pCodVendedor) {
+		if (raiz -> HIzq != NULL) {
+			NodoB *temp = raiz -> HIzq;
+			while (temp -> HDer != NULL) {
+				temp = temp -> HDer;
+			}
+			NodoB *temp2 = raiz;
+			if (temp2 -> HIzq != temp) {
+				temp2 = temp2 -> HIzq;
+				while (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
+				}
+				temp2 -> HDer = temp -> HIzq;
+			} else {
+				temp2 -> HIzq = temp -> HIzq;
+			}
+			temp -> HDer = raiz -> HDer;
+			temp -> HIzq = raiz -> HIzq;
+			raiz = temp;
+		} else {
+			if (raiz -> HDer != NULL) {
+				NodoB *temp = raiz -> HDer;
+				while (temp -> HIzq != NULL) {
+					temp = temp -> HIzq;
+				}
+				NodoB *temp2 = raiz;
+				if (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
+					while (temp2 -> HIzq != temp) {
+						temp2 = temp2 -> HIzq;
+					}
+					temp2 -> HDer = temp -> HDer;
+				} else {
+					temp2 -> HIzq = temp -> HDer;
+				}
+				temp -> HDer = raiz -> HDer;
+				temp -> HIzq = raiz -> HIzq;
+				raiz = temp;
+			} else {
+				raiz = NULL;
+			}
+		}
+	} else {
+		if (pCodVendedor < raiz -> codVendedor) {
+			eliminarClienteRecursivo(pCodVendedor, raiz -> HIzq);
+		} else {
+			eliminarClienteRecursivo(pCodVendedor, raiz -> HDer);
+		}
+	}
+}
+
+void ArbolB::eliminarVendedorRecursivo(int pCodVendedor, NodoB *&r) {
+	
+	if (r -> codVendedor == pCodVendedor) {
+		if (r -> HIzq != NULL) {
+			NodoB *temp = r -> HIzq;
+			while (temp -> HDer != NULL) {
+				temp = temp -> HDer;
+			}
+			NodoB *temp2 = r;
+			if (temp2 -> HIzq != temp) {
+				temp2 = temp2 -> HIzq;
+				while (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
+				}
+				temp2 -> HDer = temp -> HIzq;
+			} else {
+				temp2 -> HIzq = temp -> HIzq;
+			}
+			temp -> HDer = r -> HDer;
+			temp -> HIzq = r -> HIzq;
+			r = temp;
+		} else {
+			if (r -> HDer != NULL) {
+				NodoB *temp = r -> HDer;
+				while (temp -> HIzq != NULL) {
+					temp = temp -> HIzq;
+				}
+				NodoB *temp2 = r;
+				if (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
+					while (temp2 -> HIzq != temp) {
+						temp2 = temp2 -> HIzq;
+					}
+					temp2 -> HDer = temp -> HDer;
+				} else {
+					temp2 -> HIzq = temp -> HDer;
+				}
+				temp -> HDer = r -> HDer;
+				temp -> HIzq = r -> HIzq;
+				r = temp;
+			} else {
+				r = NULL;
+			}
+		}
+	} else {
+		if (pCodVendedor < r -> codVendedor) {
+			eliminarClienteRecursivo(pCodVendedor, r -> HIzq);
+		} else {
+			eliminarClienteRecursivo(pCodVendedor, r -> HDer);
+		}
+	}
+}

@@ -426,12 +426,13 @@ void ArbolRN::eliminarMarca(int pCodMarca) {
 			}
 			NodoRN *temp2 = raiz;
 			if (temp2 -> HIzq != temp) {
+				temp2 = temp2 -> HIzq;
 				while (temp2 -> HDer != temp) {
 					temp2 = temp2 -> HDer;
 				}
-				temp2 -> HDer = NULL;
+				temp2 -> HDer = temp -> HIzq;
 			} else {
-				temp2 -> HIzq = NULL;
+				temp2 -> HIzq = temp -> HIzq;
 			}
 			temp -> HDer = raiz -> HDer;
 			temp -> HIzq = raiz -> HIzq;
@@ -444,12 +445,13 @@ void ArbolRN::eliminarMarca(int pCodMarca) {
 				}
 				NodoRN *temp2 = raiz;
 				if (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
 					while (temp2 -> HIzq != temp) {
 						temp2 = temp2 -> HIzq;
 					}
-					temp2 -> HIzq = NULL;
+					temp2 -> HIzq = temp -> HDer;
 				} else {
-					temp2 -> HDer = NULL;
+					temp2 -> HDer = temp -> HDer;
 				}
 				temp -> HDer = raiz -> HDer;
 				temp -> HIzq = raiz -> HIzq;
@@ -477,12 +479,13 @@ void ArbolRN::eliminarMarcaRecursivo(int pCodMarca, NodoRN *&r) {
 			}
 			NodoRN *temp2 = r;
 			if (temp2 -> HIzq != temp) {
+				temp2 = temp2 -> HIzq;
 				while (temp2 -> HDer != temp) {
 					temp2 = temp2 -> HDer;
 				}
-				temp2 -> HDer = NULL;
+				temp2 -> HDer = temp -> HIzq;
 			} else {
-				temp2 -> HIzq = NULL;
+				temp2 -> HIzq = temp -> HIzq;
 			}
 			temp -> HDer = r -> HDer;
 			temp -> HIzq = r -> HIzq;
@@ -495,12 +498,13 @@ void ArbolRN::eliminarMarcaRecursivo(int pCodMarca, NodoRN *&r) {
 				}
 				NodoRN *temp2 = r;
 				if (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
 					while (temp2 -> HIzq != temp) {
 						temp2 = temp2 -> HIzq;
 					}
-					temp2 -> HIzq = NULL;
+					temp2 -> HIzq = temp -> HDer;
 				} else {
-					temp2 -> HDer = NULL;
+					temp2 -> HDer = temp -> HDer;
 				}
 				temp -> HDer = r -> HDer;
 				temp -> HIzq = r -> HIzq;

@@ -320,11 +320,11 @@ void modificarCosas(ArbolBB &supermercado){
 }
 
 
-void baseDatosModificar(ArbolB &clientes, ArbolBB &supermercado){
+void baseDatosModificar(ArbolB &clientes, ArbolBB &supermercado, ArbolB &administradores, ArbolB &vendedores){
 	
 	char datos;
-	string nomCliente, nomProducto, nomPasillo, nomMarca, correoCliente;
-	int cedCliente, celCliente, codigoPasillo, codigoProducto, codigoMarca, cantGondola;
+	string nomCliente, nomProducto, nomPasillo, nomMarca, correoCliente, nuevoNombre;
+	int cedCliente, celCliente, codigoPasillo, codigoProducto, codigoMarca, cantGondola, nuevoCel, codigoAdmin, codigoVend;
 	float pPrecio;
 	
 	while (datos != '8'){
@@ -396,11 +396,11 @@ void baseDatosModificar(ArbolB &clientes, ArbolBB &supermercado){
 							cin >> cantGondola;
 							supermercado.modificarMarcaNombre(nomMarca, codigoPasillo, codigoProducto, codigoMarca);
 							supermercado.modificarMarcaPrecio(pPrecio, codigoPasillo, codigoProducto, codigoMarca);
-							supermercado.modificarMarcaGondola(cantGondola, codigoPasillo, codigoProducto, codigoMarca);
-							break;
+							
 						}
 						else{
-							
+							cout << "La marca ingresada no existe" << endl;
+							break;
 						}
 						
 					}
@@ -413,19 +413,205 @@ void baseDatosModificar(ArbolB &clientes, ArbolBB &supermercado){
 						cout << "El pasillo ingresado no existe" << endl;
 						break;
 					}
+			
+			case '4':
+				break;
+				
+			case '5':
+				cout << "Este procedimiento modifica el nombre y telefono del cliente\n" <<endl;
+				cout << "Ingrese la cedula del cliente: " << endl;
+				cin >> cedCliente;
+				if (clientes.existeCedula(cedCliente)){
+					cout << "Ingrese el nuevo nombre para el cliente: " << endl;
+					cin >> nuevoNombre;
+					cout << "Ingrese el nuevo telefono para el cliente: " << endl;
+					cin >> nuevoCel;
+					clientes.modificarCliente(cedCliente, nuevoCel, nuevoNombre);
+					break;
 					
-			case '4': 
-				cout << "Este proceso modifica el stock, si es canasta y nombre\n" << endl;
-			break;
+				}
+				else{
+					cout << "La cedula ingresada no existe" << endl;
+					break;
+				}
+				
+			case '6':
+				cout << "Ingrese el codigo de administrador: ";
+				cin >> codigoAdmin;
+				if (administradores.existeAdmin(codigoAdmin)){
+					cout << "Ingrese el nuevo nombre para el administrador: " << endl;
+					cin >> nuevoNombre;
+					administradores.modificarAdmin(codigoAdmin, nuevoNombre);
+					break;
+				}
+				else{
+					cout << "El codigo administrador no existe" << endl;
+					break;
+				}
+				
+			case '7':
+				cout << "Ingrese el codigo de vendedor: ";
+				cin >> codigoVend;
+				if (vendedores.existeVendedor(codigoVend)){
+					cout << "Ingrese el nuevo nombre para el vendedor: ";
+					cin >> nuevoNombre;
+					vendedores.modificarVendedor(codigoVend, nuevoNombre);
+					break;
+				}
+				else{
+					cout << "El codigo vendedor no existe" << endl;
+					break;
+				}
+				
+			case '8':
+				cout << "Volviendo al menu anterior..." << endl;
+				break;
+			
+			default:
+				cout << "-----Opcion Invalia-----" << endl;
 		}
+	}
+}
+
+void baseDeDatosEliminar(ArbolB &clientes, ArbolBB &supermercado, ArbolB &administradores, ArbolB &vendedores) {
+	
+	char datos;
+	int cedCliente, codigoPasillo, codigoProducto, codigoMarca, codigoAdmin, codigoVend;
+	
+	while (datos != '8') {
 		
+		cout << "1. Eliminar Pasillo" << endl;
+		cout << "2. Eliminar Producto" << endl;
+		cout << "3. Eliminar Marca" << endl;
+		cout << "4. Eliminar producto de inventario" << endl;
+		cout << "5. Eliminar cliente" << endl;
+		cout << "6. Eliminar nombre de administrador" << endl;
+		cout << "7. Eliminar nombre de vendedor" << endl;
+		cout << "8. Salir" << endl;
+		cout << "Seleccione una opcion: " << endl;
+		cin >> datos;
 		
-		
+		switch (datos) {
+			
+			case '1':
+				cout << "Ingrese el codigo del pasillo a eliminar: ";
+				cin >> codigoPasillo;
+				if (supermercado.existeCodigo(codigoPasillo)) {
+					supermercado.eliminarPasillo(codigoPasillo);
+					cout << "Se elimino el pasillo." << endl;
+				} else {
+					cout << "No existe ese pasillo." << endl;
+				}
+				break;
+				
+			case '2':
+				cout << "Ingrese el codigo del pasillo: ";
+				cin >> codigoPasillo;
+				if (supermercado.existeCodigo(codigoPasillo)) {
+					cout << "Ingrese el codigo del producto: ";
+					cin >> codigoProducto;
+					if (supermercado.existeProducto(codigoPasillo, codigoProducto)) {
+						supermercado.eliminarProducto(codigoPasillo, codigoProducto);
+						cout << "Se elimino el producto." << endl;
+					} else {
+						cout << "No existe ese producto." << endl;
+					}
+				} else {
+					cout << "No existe ese pasillo." << endl;
+				}
+				break;
+				
+			case '3':
+				cout << "Ingrese el codigo del pasillo: ";
+				cin >> codigoPasillo;
+				if (supermercado.existeCodigo(codigoPasillo)) {
+					cout << "Ingrese el codigo del producto: ";
+					cin >> codigoProducto;
+					if (supermercado.existeProducto(codigoPasillo, codigoProducto)) {
+						cout << "Ingrese el codigo de la marca: ";
+						cin >> codigoMarca;
+						if (supermercado.existeMarca(codigoPasillo, codigoProducto, codigoMarca)) {
+							supermercado.eliminarMarca(codigoPasillo, codigoProducto, codigoMarca);
+							cout << "Se elimino la marca." << endl;
+						} else {
+							cout << "No existe esa marca." << endl;
+						}
+					} else {
+						cout << "No existe ese producto." << endl;
+					}
+				} else {
+					cout << "No existe ese pasillo." << endl;
+				}
+				break;
+				
+			case '4':
+				cout << "Ingrese el codigo del pasillo: ";
+				cin >> codigoPasillo;
+				if (supermercado.existeCodigo(codigoPasillo)) {
+					cout << "Ingrese el codigo del producto: ";
+					cin >> codigoProducto;
+					if (supermercado.existeProducto(codigoPasillo, codigoProducto)) {
+						cout << "Ingrese el codigo de la marca: ";
+						cin >> codigoMarca;
+						if (supermercado.existeMarca(codigoPasillo, codigoProducto, codigoMarca)) {
+							supermercado.eliminarInventario(codigoPasillo, codigoProducto, codigoMarca);
+							cout << "Se elimino la marca del inventario." << endl;
+						} else {
+							cout << "No existe esa marca del inventario." << endl;
+						}
+					} else {
+						cout << "No existe ese producto." << endl;
+					}
+				} else {
+					cout << "No existe ese pasillo." << endl;
+				}
+				break;
+				
+			case '5':
+				cout << "Ingrese la cedula del cliente: ";
+				cin >> cedCliente;
+				if (clientes.existeCedula(cedCliente)) {
+					clientes.eliminarCliente(cedCliente);
+					cout << "Se elimino el cliente." << endl;
+				} else {
+					cout << "Esa cedula no existe." << endl;
+				}
+				break;
+				
+			case '6':
+				cout << "Ingrese el codigo del administrador: ";
+				cin >> codigoAdmin;
+				if (administradores.existeAdmin(codigoAdmin)) {
+					administradores.eliminarAdmin(codigoAdmin);
+					cout << "Se elimino el administrador." << endl;
+				} else {
+					cout << "No existe ese codigo de administrador." << endl;
+				}
+				break;
+				
+			case '7':
+				cout << "Ingrese el codigo del vendedor: ";
+				cin >> codigoVend;
+				if (vendedores.existeVendedor(codigoVend)) {
+					vendedores.eliminarVendedor(codigoVend);
+					cout << "Se elimino el vendedor." << endl;
+				} else {
+					cout << "No existe ese codigo de vendedor." << endl;
+				}
+				break;
+				
+			case '8':
+				cout << "Volviendo al menu anterior...." << endl;
+				break;
+				
+			default:
+				cout << "Ingreso una opcion incorrecta." << endl;
+		}
 	}
 }
 
 
-void baseDeDatos(ArbolB &clientes, int &descuento, ArbolBB &supermercado, ListaDescuento &listaDescuentos){
+void baseDeDatos(ArbolB &clientes, int &descuento, ArbolBB &supermercado, ListaDescuento &listaDescuentos, ArbolB &administradores, ArbolB &vendedores){
 	
 	char datos;
 	string nomCliente;
@@ -459,11 +645,12 @@ void baseDeDatos(ArbolB &clientes, int &descuento, ArbolBB &supermercado, ListaD
 				
 			case '2':
 				cout << "Menu de opciones para eliminar cosas" << endl;
+				baseDeDatosEliminar(clientes, supermercado, administradores, vendedores);
 				break;
 				
 			case '3':
 				cout << "Menu de opciones para modificar cosas" << endl;
-				baseDatosModificar(clientes, supermercado);
+				baseDatosModificar(clientes, supermercado, administradores, vendedores);
 				break;
 				
 			case '4':
@@ -640,7 +827,7 @@ void reportes(ArbolBB &supermercado, ArbolB &clientes, Reportes &listaReportes){
 	}
 }
 
-void menuAdministrador(ArbolB &clientes, int &descuento, ArbolBB &supermercado, Compras &colaCompras, ListaDescuento &listaDescuentos, Reportes &listaReportes, int &consecutivoFacturas){
+void menuAdministrador(ArbolB &clientes, int &descuento, ArbolBB &supermercado, Compras &colaCompras, ListaDescuento &listaDescuentos, Reportes &listaReportes, int &consecutivoFacturas, ArbolB &administradores, ArbolB &vendedores){
 	
 	char opcion;
 	ofstream file;
@@ -664,7 +851,7 @@ void menuAdministrador(ArbolB &clientes, int &descuento, ArbolBB &supermercado, 
 			
 			case '1':
 				cout << "Mantenimiento Bases"<< endl;
-				baseDeDatos(clientes, descuento, supermercado, listaDescuentos);
+				baseDeDatos(clientes, descuento, supermercado, listaDescuentos, administradores, vendedores);
 				break;
 			case '2':
 				int cedula;
@@ -834,10 +1021,12 @@ int main() {
 		if (!clientes.existeCedula(stoi(cedula))){
 			
 			clientes.insertar(stoi(cedula), nombre, stoi(telefono), correo);
+			
 			listaDescuentos.agregarCliente(stoi(cedula));
 		}
 	}
-
+//	clientes.mostrar();
+	cout << "-------------------------------" << endl;
 	archivo5.close();
 
 
@@ -855,11 +1044,14 @@ int main() {
 		getline(input_stringstream, nombre, ';');
 		if (!administradores.existeAdmin(stoi(codigo))){
 			administradores.insertar(stoi(codigo), nombre);
+			
 		}
 		
 	}
-	
+//	administradores.mostrarAdmin();
+	cout << "-------------------------------" << endl;
 	archivo6.close();
+	
 
 //------------------------LECTURA DE VENDEDORES -----------------------------------
 	
@@ -874,11 +1066,14 @@ int main() {
 		getline(input_stringstream, nombre, ';');
 		if (!vendedores.existeVendedor(stoi(vendedor))){
 			vendedores.insertar(nombre, stoi(vendedor));
+			
 		}
 		
 	}
 	
+//	vendedores.mostrarVendedor();
 	archivo7.close();
+	cout << "-------------------------------" << endl;
 	
 //--------------------LECTURA DE CIUDADES--------------------------
 
@@ -891,12 +1086,12 @@ int main() {
 		stringstream input_stringstream(linea);
 		getline(input_stringstream, ciudad1, ';');
 		getline(input_stringstream, nombre, ';');
-		cout << ciudad1 << "	|	" << nombre << endl;
+		//cout << ciudad1 << "	|	" << nombre << endl;
 	}
 	
 	archivo8.close();
 
-	cout << "-----------------------------------------" << endl;
+	//cout << "-----------------------------------------" << endl;
 
 
 //--------------------LECTURA DE CONEXIONES--------------------------
@@ -909,12 +1104,12 @@ int main() {
 		getline(input_stringstream, ciudad1, ';');
 		getline(input_stringstream, ciudad2, ';');
 		getline(input_stringstream, peso, ';');
-		cout << ciudad1 << "	|	" <<ciudad2 << "	|	" << peso << endl;
+		//cout << ciudad1 << "	|	" <<ciudad2 << "	|	" << peso << endl;
 	}
 	
 	archivo9.close();	
 	
-	cout << "-----------------------------------------" << endl;	
+	//cout << "-----------------------------------------" << endl;	
 	
 //--------------------LECTURA DE CIUDADES1--------------------------
 
@@ -924,11 +1119,11 @@ int main() {
 		stringstream input_stringstream(linea);
 		getline(input_stringstream, ciudad1, ';');
 		getline(input_stringstream, nombre, ';');
-		cout << ciudad1 << "	|	" << nombre << endl;
+		//cout << ciudad1 << "	|	" << nombre << endl;
 	}	
 	
 	archivo10.close();
-	cout << "-----------------------------------------" << endl;
+	//cout << "-----------------------------------------" << endl;
 	
 //--------------------LECTURA DE CONEXIONES1--------------------------	
 	
@@ -939,7 +1134,7 @@ int main() {
 		stringstream input_stringstream(linea);
 		getline(input_stringstream, ciudad1, ';');
 		getline(input_stringstream, ciudad2, ';');
-		cout << ciudad1 << "	|	" <<ciudad2  << endl;
+		//cout << ciudad1 << "	|	" <<ciudad2  << endl;
 	}
 	
 	archivo11.close();
@@ -982,7 +1177,7 @@ int main() {
 				cout << "Ingrese su codigo de administrador: ";
 				cin >> codigoAdmin;
 				if (administradores.existeAdmin(codigoAdmin)){
-					menuAdministrador(clientes, descuento, supermercado, colaCompras, listaDescuentos, listaReportes, consecutivoFacturas);
+					menuAdministrador(clientes, descuento, supermercado, colaCompras, listaDescuentos, listaReportes, consecutivoFacturas, administradores, vendedores);
 					break;
 				}
 				

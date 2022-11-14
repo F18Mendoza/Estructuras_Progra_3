@@ -24,6 +24,8 @@ class ArbolBB {
         bool existeProductoRecursivo(int pCodPasillo, int pCodProducto, NodoBB *&r);
         bool existeMarca(int pCodPasillo, int pCodProducto, int pCodMarca);
         bool existeMarcaRecursivo(int pCodPasillo, int pCodProducto, int pCodMarca, NodoBB *&r);
+        bool existeInventario(int pCodPasillo, int pCodProducto, int pCodMarca);
+        bool existeInventarioRecursivo(int pCodPasillo, int pCodProducto, int pCodMarca, NodoBB *&r);
         void insertarProducto(string pNombre, int pCodPasillo, int pCodProducto);
         void insertarProductoRecursivo(NodoBB *&r, string pNombre, int pCodPasillo, int pCodProducto);
         void insertarMarca(string pNombre, int pCodPasillo, int pCodProducto, int pCodMarca, int pCantidad, float pPrecio);
@@ -78,6 +80,8 @@ class ArbolBB {
         void eliminarProductoRecursivo(int pCodPasillo, int pCodProducto, NodoBB *&r);
         void eliminarMarca(int pCodPasillo, int pCodProducto, int pCodMarca);
         void eliminarMarcaRecursivo(int pCodPasillo, int pCodProducto, int pCodMarca, NodoBB *&r);
+        void eliminarInventario(int pCodPasillo, int pCodProducto, int pCodMarca);
+        void eliminarInventarioRecursivo(int pCodPasillo, int pCodProducto, int pCodMarca, NodoBB *&r);
 };
 
 #endif

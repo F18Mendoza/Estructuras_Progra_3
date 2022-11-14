@@ -39,10 +39,18 @@ class ArbolB {
         string nombreClienteRecursivo(NodoB *&r, int pCedula);
         int telefonoCliente(int pCedula);
         int telefonoClienteRecursivo(NodoB *&r, int pCedula);
-        void eliminarCiente(int pCedula);
-        void eliminarClienteRecursivo(NodoB *&r, int pCedula);
-        void suprimirCliente(NodoB *&r);
-        NodoB *minimo (NodoB *&r);
+        void modificarCliente (int pCedula, int pTelefono, string pNombre);
+        void modificarClienteRecursivo (NodoB *&r, int pCedula, int pTelefono, string pNombre);
+        void modificarAdmin(int pCodAdmin, string pNombre);
+        void modificarAdminRecursivo(NodoB *&r, int pCodAdmin, string pNombre);
+        void modificarVendedor (int pCodVendedor, string pNombre);
+        void modificarVendedorRecursivo (NodoB *&r, int pCodVendedor, string pNombre);
+        void eliminarCliente(int pCedula);
+        void eliminarClienteRecursivo(int pCedula, NodoB *&r);
+        void eliminarAdmin(int pCodAdmin);
+        void eliminarAdminRecursivo(int pCodAdmin, NodoB *&r);
+        void eliminarVendedor(int pCodVendedor);
+        void eliminarVendedorRecursivo(int pCodVendedor, NodoB *&r);
 };
 
 #endif

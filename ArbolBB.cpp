@@ -142,6 +142,32 @@ bool ArbolBB::existeMarcaRecursivo(int pCodPasillo, int pCodProducto, int pCodMa
 	}
 }
 
+bool ArbolBB::existeInventario(int pCodPasillo, int pCodProducto, int pCodMarca) {
+	
+	if (raiz -> codPasillo == pCodPasillo) {
+		return raiz -> productos.existeInventario(pCodProducto, pCodMarca);
+	} else {
+		if (pCodPasillo < raiz -> codPasillo) {
+			return existeInventarioRecursivo(pCodPasillo, pCodProducto, pCodMarca, raiz -> HIzq);
+		} else {
+			return existeInventarioRecursivo(pCodPasillo, pCodProducto, pCodMarca, raiz -> HDer);
+		}
+	}
+}
+
+bool ArbolBB::existeInventarioRecursivo(int pCodPasillo, int pCodProducto, int pCodMarca, NodoBB *&r) {
+	
+	if (r -> codPasillo == pCodPasillo) {
+		return r -> productos.existeInventario(pCodProducto, pCodMarca);
+	} else {
+		if (pCodPasillo < r -> codPasillo) {
+			return existeInventarioRecursivo(pCodPasillo, pCodProducto, pCodMarca, r -> HIzq);
+		} else {
+			return existeInventarioRecursivo(pCodPasillo, pCodProducto, pCodMarca, r -> HDer);
+		}
+	}
+}
+
 void ArbolBB::insertarProducto(string pNombre, int pCodPasillo, int pCodProducto) {
 
      if (raiz -> codPasillo == pCodPasillo) {
@@ -770,12 +796,13 @@ void ArbolBB::eliminarPasillo(int pCodPasillo) {
 			}
 			NodoBB *temp2 = raiz;
 			if (temp2 -> HIzq != temp) {
+				temp2 = temp2 -> HIzq;
 				while (temp2 -> HDer != temp) {
 					temp2 = temp2 -> HDer;
 				}
-				temp2 -> HDer = NULL;
+				temp2 -> HDer = temp -> HIzq;
 			} else {
-				temp2 -> HIzq = NULL;
+				temp2 -> HIzq = temp -> HIzq;
 			}
 			temp -> HDer = raiz -> HDer;
 			temp -> HIzq = raiz -> HIzq;
@@ -788,12 +815,13 @@ void ArbolBB::eliminarPasillo(int pCodPasillo) {
 				}
 				NodoBB *temp2 = raiz;
 				if (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
 					while (temp2 -> HIzq != temp) {
 						temp2 = temp2 -> HIzq;
 					}
-					temp2 -> HIzq = NULL;
+					temp2 -> HIzq = temp -> HDer;
 				} else {
-					temp2 -> HDer = NULL;
+					temp2 -> HDer = temp -> HDer;
 				}
 				temp -> HDer = raiz -> HDer;
 				temp -> HIzq = raiz -> HIzq;
@@ -822,12 +850,13 @@ void ArbolBB::eliminarPasilloRecursivo(int pCodPasillo, NodoBB *&r) {
 			}
 			NodoBB *temp2 = r;
 			if (temp2 -> HIzq != temp) {
+				temp2 = temp2 -> HIzq;
 				while (temp2 -> HDer != temp) {
 					temp2 = temp2 -> HDer;
 				}
-				temp2 -> HDer = NULL;
+				temp2 -> HDer = temp -> HIzq;
 			} else {
-				temp2 -> HIzq = NULL;
+				temp2 -> HIzq = temp -> HIzq;
 			}
 			temp -> HDer = r -> HDer;
 			temp -> HIzq = r -> HIzq;
@@ -840,12 +869,13 @@ void ArbolBB::eliminarPasilloRecursivo(int pCodPasillo, NodoBB *&r) {
 				}
 				NodoBB *temp2 = r;
 				if (temp2 -> HDer != temp) {
+					temp2 = temp2 -> HDer;
 					while (temp2 -> HIzq != temp) {
 						temp2 = temp2 -> HIzq;
 					}
-					temp2 -> HIzq = NULL;
+					temp2 -> HIzq = temp -> HDer;
 				} else {
-					temp2 -> HDer = NULL;
+					temp2 -> HDer = temp -> HDer;
 				}
 				temp -> HDer = r -> HDer;
 				temp -> HIzq = r -> HIzq;
@@ -911,6 +941,32 @@ void ArbolBB::eliminarMarcaRecursivo(int pCodPasillo, int pCodProducto, int pCod
 			eliminarMarcaRecursivo(pCodPasillo, pCodProducto, pCodMarca, r -> HIzq);
 		} else {
 			eliminarMarcaRecursivo(pCodPasillo, pCodProducto, pCodMarca, r -> HDer);
+		}
+	}
+}
+
+void ArbolBB::eliminarInventario(int pCodPasillo, int pCodProducto, int pCodMarca) {
+	
+	if (raiz -> codPasillo == pCodPasillo) {
+		raiz -> productos.eliminarInventario(pCodProducto, pCodMarca);
+	} else {
+		if (pCodPasillo < raiz -> codPasillo) {
+			eliminarInventarioRecursivo(pCodPasillo, pCodProducto, pCodMarca, raiz -> HIzq);
+		} else {
+			eliminarInventarioRecursivo(pCodPasillo, pCodProducto, pCodMarca, raiz -> HDer);
+		}
+	}
+}
+
+void ArbolBB::eliminarInventarioRecursivo(int pCodPasillo, int pCodProducto, int pCodMarca, NodoBB *&r) {
+	
+	if (r -> codPasillo == pCodPasillo) {
+		r -> productos.eliminarInventario(pCodProducto, pCodMarca);
+	} else {
+		if (pCodPasillo < r -> codPasillo) {
+			eliminarInventarioRecursivo(pCodPasillo, pCodProducto, pCodMarca, r -> HIzq);
+		} else {
+			eliminarInventarioRecursivo(pCodPasillo, pCodProducto, pCodMarca, r -> HDer);
 		}
 	}
 }

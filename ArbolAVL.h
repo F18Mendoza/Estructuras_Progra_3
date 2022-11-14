@@ -27,6 +27,8 @@ class ArbolAVL {
         bool existeCodigoRecursivo(int pCodProducto, NodoAVL *&r);
         bool existeMarca(int pCodProducto, int pCodMarca);
         bool existeMarcaRecursivo(int pCodProducto, int pCodMarca, NodoAVL *&r);
+        bool existeInventario(int pCodProducto, int pCodMarca);
+        bool existeInventarioRecursivo(int pCodProducto, int pCodMarca, NodoAVL *&r);
         void mostrarProductos();
         void mostrarProductosRecursivo(NodoAVL *&r);
         void mostrarMarcas(int pCodProducto);
@@ -69,6 +71,8 @@ class ArbolAVL {
         void eliminarProductoRecursivo(int pCodProducto, NodoAVL *&r);
         void eliminarMarca(int pCodProducto, int pCodMarca);
         void eliminarMarcaRecursivo(int pCodProducto, int pCodMarca, NodoAVL *&r);
+        void eliminarInventario(int pCodProducto, int pCodMarca);
+        void eliminarInventarioRecursivo(int pCodProducto, int pCodMarca, NodoAVL *&r);
 
     friend class NodoBB;
 };
